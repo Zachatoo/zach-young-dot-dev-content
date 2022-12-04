@@ -1,9 +1,8 @@
 ---
 title: "Dataview snippets"
+createdAt: "2022-10-21"
 description: "Snippets I've written for the Dataview Obsidian plugin."
 ---
-
-# Dataview snippets
 
 ## Get days since note was created.
 
