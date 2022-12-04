@@ -2,6 +2,8 @@
 title: "Download Shootproof photos bookmarklet"
 createdAt: "2022-10-21"
 description: "This bookmarklet is to download all of the photos from a Shootproof gallery. It'll go through each photo one by one and download the high quality image."
+tags:
+  - javascript
 ---
 
 This bookmarklet is to download all of the photos from a Shootproof gallery. It'll go through each photo one by one and download the high quality image.

@@ -2,7 +2,11 @@
 title: "Dataview snippets"
 createdAt: "2022-10-21"
 description: "Snippets I've written for the Dataview Obsidian plugin."
+tags:
+  - obsidian
 ---
+
+Snippets I've written for the [Dataview](https://github.com/blacksmithgu/obsidian-dataview) Obsidian plugin.
 
 ## Get days since note was created.
 

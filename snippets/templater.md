@@ -2,7 +2,11 @@
 title: "Templater snippets"
 createdAt: "2022-02-07"
 description: "Snippets I've written for the Templater Obsidian plugin."
+tags:
+  - obsidian
 ---
+
+Snippets I've written for the [Templater](https://github.com/SilentVoid13/Templater) Obsidian plugin.
 
 ## Reuse value from prompt or suggester
 

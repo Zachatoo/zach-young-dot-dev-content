@@ -3,7 +3,7 @@ title: "Get date for timezone in SQL"
 createdAt: "2022-10-12"
 description: "Get current date for specific timezone when server is in UTC timezone."
 tags:
-  - SQL
+  - sql
 ---
 
 Get current date for specific timezone when server is in UTC timezone.
