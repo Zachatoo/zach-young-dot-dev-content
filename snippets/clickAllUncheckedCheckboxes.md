@@ -6,6 +6,10 @@ tags:
   - javascript
 ---
 
+Click on all unchecked checkboxes in the document.
+
 ```js
-document.querySelectorAll("input[type=checkbox]:not(:checked)").forEach((el) => el.click());
+document
+  .querySelectorAll("input[type=checkbox]:not(:checked)")
+  .forEach((el) => el.click());
 ```
