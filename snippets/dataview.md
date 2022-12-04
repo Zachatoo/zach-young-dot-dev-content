@@ -1,4 +1,5 @@
 ---
+title: "Dataview snippets"
 description: "Snippets I've written for the Dataview Obsidian plugin."
 ---
 

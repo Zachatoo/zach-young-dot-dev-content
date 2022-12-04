@@ -1,4 +1,5 @@
 ---
+title: "Templater snippets"
 description: "Snippets I've written for the Templater Obsidian plugin."
 ---
 
