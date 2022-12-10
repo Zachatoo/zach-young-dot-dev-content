@@ -1,4 +1,4 @@
-[![🚀 Deploy](https://github.com/Zachatoo/zachyoung-dot-dev/actions/workflows/deploy.yml/badge.svg)](https://github.com/Zachatoo/zachyoung-dot-dev/actions/workflows/deploy.yml)
+[![Purge cache](https://github.com/Zachatoo/zach-young-dot-dev-content/actions/workflows/purge-cache.yml/badge.svg)](https://github.com/Zachatoo/zach-young-dot-dev-content/actions/workflows/purge-cache.yml)
 
 # zachyoung.dev
 
