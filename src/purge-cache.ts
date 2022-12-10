@@ -37,7 +37,7 @@ pathsArr.forEach((pathWithExtension) => {
   urlsToPurge.add(`${BASE_URL}/${route}?_data=routes%2F${route}`);
 });
 
-console.info("Purging the following urls", urlsToPurge);
+console.info("Purging the following urls", Array.from(urlsToPurge));
 
 const body = JSON.stringify({ files: Array.from(urlsToPurge) });
 
