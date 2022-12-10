@@ -1,5 +1,7 @@
 import { parse } from "https://deno.land/std@0.167.0/flags/mod.ts";
 
+const BASE_URL = "https://zachyoung.dev";
+
 const flags = parse(Deno.args, {
   string: ["paths", "token", "zone"],
 });
@@ -20,12 +22,14 @@ if (!zone) {
 
 const pathsArr: string[] = JSON.parse(paths.replaceAll("\\", ""));
 
-const urlsToPurge: string[] = [];
-pathsArr.forEach((path) => {
-  urlsToPurge.push(`https://zachyoung.dev/${path.replace(".md", "")}`);
+const urlsToPurge: Set<string> = new Set();
+pathsArr.forEach((pathWithExtension) => {
+  const path = pathWithExtension.replace(".md", "");
+  urlsToPurge.add(`${BASE_URL}/${path}`);
+  urlsToPurge.add(`${BASE_URL}/${path.split("/")[0]}`);
 });
 
-const body = JSON.stringify({ files: urlsToPurge });
+const body = JSON.stringify({ files: Array.from(urlsToPurge) });
 
 const options = {
   method: "POST",
