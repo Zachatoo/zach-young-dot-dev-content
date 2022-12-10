@@ -10,7 +10,7 @@ if (!paths) {
   Deno.exit();
 }
 
-const pathsArr: string[] = JSON.parse(paths);
+const pathsArr: string[] = JSON.parse(paths.replaceAll("\\", ""));
 
 const urlsToPurge: string[] = [];
 pathsArr.forEach((path) => {
