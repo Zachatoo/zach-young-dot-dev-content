@@ -19,18 +19,23 @@ jobs:
         uses: tj-actions/changed-files@v34.5.1
         with:
           json: "true"
+          files: |
+            snippets/**
 
       - name: List modified files
+        if: ${{ steps.changed-files-outputs.any_modified }}
         run: |
           for file in ${{ steps.changed-files.outputs.modified_files }}; do
             echo "$file was modified"
           done
 
-      - name: Purge modified files
-        uses: fjogeleit/http-request-action@v1
+      - name: Setup Deno
+        if: ${{ steps.changed-files-outputs.any_modified }}
+        uses: denoland/setup-deno@v1
         with:
-          url: "${{ secrets.CF_PURGE_CACHE_URL }}"
-          method: "POST"
-          bearerToken: "${{ secrets.CF_TOKEN }}"
-          customHeaders: '{"Content-Type": "application/json"}'
-          data: '{ "files": ["https://zachyoung.dev/blog", "https://zachyoung.dev/blog?_data=routes%2Fblog"] }'
+          deno-version: v1.x
+
+      - name: Purge modified files
+        if: ${{ steps.changed-files-outputs.any_modified }}
+        run: "deno run purge-cache.ts -- paths '{ \"files\": [\"https://zachyoung.dev/snippets\", \"https://zachyoung.dev/snippets?_data=routes%snippets\"] }'"
+
