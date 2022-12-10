@@ -34,9 +34,9 @@ jobs:
           bearerToken: "${{ secrets.CF_TOKEN }}"
           customHeaders: '{"Content-Type": "application/json"}'
           data: |
-            {
+            '{
               \"files\": [
                   \"https://zachyoung.dev/blog\",
                   \"https://zachyoung.dev/blog?_data=routes%2Fblog\"
               ]
-            }
+            }'
