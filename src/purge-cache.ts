@@ -20,11 +20,22 @@ if (!zone) {
   Deno.exit(1);
 }
 
-const pathsArr: string[] = JSON.parse(paths.replaceAll("\\", ""));
+const pathsArr = JSON.parse(paths.replaceAll("\\", ""));
+if (
+  !Array.isArray(pathsArr) ||
+  !pathsArr.every((path) => typeof path === "string")
+) {
+  console.error("--paths must be an array of strings");
+  Deno.exit(1);
+}
 
 const urlsToPurge: Set<string> = new Set();
-pathsArr.forEach((pathWithExtension) => {
-  const path = pathWithExtension.replace(".md", "");
+pathsArr.forEach((pathWithExtension: string) => {
+  if (!(typeof pathWithExtension === "string")) {
+    return;
+  }
+
+  const path = pathWithExtension.replace(/\.md(x)?$/, "");
   const route = path.split("/")[0];
 
   // SSR doc request for page
@@ -37,20 +48,41 @@ pathsArr.forEach((pathWithExtension) => {
   urlsToPurge.add(`${BASE_URL}/${route}?_data=routes%2F${route}`);
 });
 
-console.info("Purging the following urls", Array.from(urlsToPurge));
+const BATCH_SIZE = 30;
+let currBatchIndex = 0;
 
-const body = JSON.stringify({ files: Array.from(urlsToPurge) });
+const batches = Array.from(urlsToPurge).reduce((acc, curr) => {
+  if (acc[currBatchIndex].length >= BATCH_SIZE) {
+    currBatchIndex++;
+    acc[currBatchIndex] = [];
+  }
+  acc[currBatchIndex].push(curr);
+  return acc;
+}, [[]] as string[][]);
 
-const options = {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${token}`,
-  },
-  body,
-};
+console.info("Purging the following urls", batches);
 
-await fetch(
-  `https://api.cloudflare.com/client/v4/zones/${zone}/purge_cache`,
-  options,
-);
+const promises = batches.map((files) => {
+  const body = JSON.stringify({ files });
+
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    body,
+  };
+
+  return () =>
+    fetch(
+      `https://api.cloudflare.com/client/v4/zones/${zone}/purge_cache`,
+      options,
+    );
+});
+
+promises.forEach(async (promise, index) => {
+  console.info(`Processing batch ${index + 1}`);
+  await promise();
+  console.info(`Finished processing batch ${index + 1}`);
+});
