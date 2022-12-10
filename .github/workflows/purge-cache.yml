@@ -23,17 +23,18 @@ jobs:
             snippets/**
 
       - name: List modified files
+        if: ${{ steps.changed-files.outputs.any_modified == true }}
         run: |
           for file in ${{ steps.changed-files.outputs.modified_files }}; do
             echo "$file was modified"
           done
 
       - name: Setup Deno
-        if: ${{ steps.changed-files.outputs.any_modified }}
+        if: ${{ steps.changed-files.outputs.any_modified == true }}
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
 
       - name: Purge modified files
-        if: ${{ steps.changed-files.outputs.any_modified }}
+        if: ${{ steps.changed-files.outputs.any_modified == true }}
         run: "deno run --allow-net src/purge-cache.ts --paths '${{ steps.changed-files.outputs.modified_files }}' --token ${{ secrets.CF_TOKEN }} --zone ${{ secrets.CF_ZONE }}"
