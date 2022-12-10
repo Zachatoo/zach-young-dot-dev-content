@@ -1,9 +1,8 @@
 name: Purge cache
 
-# Controls when the workflow will run
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -14,10 +13,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      
+
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v34.5.1
-        
-      - name: List added files
-        run: echo ${{ steps.changed-files.outputs.added_files }}
+        with:
+          json: "true"
+
+      - name: List modified files
+        run: |
+          for file in ${{ steps.changed-files.outputs.modified_files }}; do
+            echo "$file was modified"
+          done
+
+      - name: Purge modified files
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: "${{ secrets.PURGE_CACHE_URL }}"
+          method: "POST"
+          customHeaders: '{"Content-Type": "application/json"}'
+          data: "${{ steps.changed-files.outputs.modified_files }}"
