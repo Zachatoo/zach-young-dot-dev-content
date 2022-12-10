@@ -32,7 +32,7 @@ pathsArr.forEach((pathWithExtension) => {
   // SSR doc request for parent page
   urlsToPurge.add(`${BASE_URL}/${route}`);
   // JSON request for page
-  urlsToPurge.add(`${BASE_URL}/${route}?_data=routes%2F${route}.%24slug`);
+  urlsToPurge.add(`${BASE_URL}/${path}?_data=routes%2F${route}.%24slug`);
   // JSON request for parent page
   urlsToPurge.add(`${BASE_URL}/${route}?_data=routes%2F${route}`);
 });
