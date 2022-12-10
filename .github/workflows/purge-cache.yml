@@ -36,4 +36,4 @@ jobs:
 
       - name: Purge modified files
         if: ${{ steps.changed-files.outputs.any_modified }}
-        run: "deno run src/purge-cache.ts --allow-env --allow-net --paths '${{ steps.changed-files.outputs.modified_files }}' --token ${{ secrets.CF_TOKEN }} --zone ${{ secrets.CF_ZONE }}"
+        run: "deno run --allow-env --allow-net src/purge-cache.ts --paths '${{ steps.changed-files.outputs.modified_files }}' --token ${{ secrets.CF_TOKEN }} --zone ${{ secrets.CF_ZONE }}"
