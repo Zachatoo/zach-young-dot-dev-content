@@ -35,8 +35,8 @@ jobs:
           customHeaders: '{"Content-Type": "application/json"}'
           data: |
             '{
-              \"files\": [
-                  \"https://zachyoung.dev/blog\",
-                  \"https://zachyoung.dev/blog?_data=routes%2Fblog\"
+              "files": [
+                  "https://zachyoung.dev/blog",
+                  "https://zachyoung.dev/blog?_data=routes%2Fblog"
               ]
             }'
