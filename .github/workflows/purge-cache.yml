@@ -36,5 +36,5 @@ jobs:
 
       - name: Purge modified files
         if: ${{ steps.changed-files.outputs.any_modified }}
-        run: "deno run src/purge-cache.ts --paths '{ \"files\": [\"https://zachyoung.dev/snippets\", \"https://zachyoung.dev/snippets?_data=routes%snippets\"] }'"
+        run: "deno run src/purge-cache.ts --paths '${{ steps.changed-files.outputs.modified_files }}'
 
