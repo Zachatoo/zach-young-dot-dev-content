@@ -23,7 +23,6 @@ jobs:
             snippets/**
 
       - name: List modified files
-        if: ${{ steps.changed-files-outputs.any_modified }}
         run: |
           for file in ${{ steps.changed-files.outputs.modified_files }}; do
             echo "$file was modified"
