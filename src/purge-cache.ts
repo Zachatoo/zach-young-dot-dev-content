@@ -25,9 +25,19 @@ const pathsArr: string[] = JSON.parse(paths.replaceAll("\\", ""));
 const urlsToPurge: Set<string> = new Set();
 pathsArr.forEach((pathWithExtension) => {
   const path = pathWithExtension.replace(".md", "");
+  const route = path.split("/")[0];
+
+  // SSR doc request for page
   urlsToPurge.add(`${BASE_URL}/${path}`);
-  urlsToPurge.add(`${BASE_URL}/${path.split("/")[0]}`);
+  // SSR doc request for parent page
+  urlsToPurge.add(`${BASE_URL}/${route}`);
+  // JSON request for page
+  urlsToPurge.add(`${BASE_URL}/${route}?_data=routes%2F${route}.%24slug`);
+  // JSON request for parent page
+  urlsToPurge.add(`${BASE_URL}/${route}?_data=routes%2F${route}`);
 });
+
+console.info("Purging the following urls", urlsToPurge);
 
 const body = JSON.stringify({ files: Array.from(urlsToPurge) });
 
