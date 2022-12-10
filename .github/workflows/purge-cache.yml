@@ -29,12 +29,12 @@ jobs:
           done
 
       - name: Setup Deno
-        if: ${{ steps.changed-files-outputs.any_modified }}
+        if: ${{ steps.changed-files.outputs.any_modified }}
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
 
       - name: Purge modified files
-        if: ${{ steps.changed-files-outputs.any_modified }}
+        if: ${{ steps.changed-files.outputs.any_modified }}
         run: "deno run purge-cache.ts -- paths '{ \"files\": [\"https://zachyoung.dev/snippets\", \"https://zachyoung.dev/snippets?_data=routes%snippets\"] }'"
 
