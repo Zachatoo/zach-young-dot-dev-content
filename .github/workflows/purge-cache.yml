@@ -29,7 +29,14 @@ jobs:
       - name: Purge modified files
         uses: fjogeleit/http-request-action@v1
         with:
-          url: "${{ secrets.PURGE_CACHE_URL }}"
+          url: "${{ secrets.CF_PURGE_CACHE_URL }}"
           method: "POST"
+          bearerToken: "${{ secrets.CF_TOKEN }}"
           customHeaders: '{"Content-Type": "application/json"}'
-          data: "${{ steps.changed-files.outputs.modified_files }}"
+          data: |
+            {
+              \"files\": [
+                  \"https://zachyoung.dev/blog\",
+                  \"https://zachyoung.dev/blog?_data=routes%2Fblog\"
+              ]
+            }
