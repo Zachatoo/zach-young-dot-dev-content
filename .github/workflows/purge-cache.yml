@@ -33,10 +33,4 @@ jobs:
           method: "POST"
           bearerToken: "${{ secrets.CF_TOKEN }}"
           customHeaders: '{"Content-Type": "application/json"}'
-          data: |
-            '{
-              "files": [
-                  "https://zachyoung.dev/blog",
-                  "https://zachyoung.dev/blog?_data=routes%2Fblog"
-              ]
-            }'
+          data: '{ "files": ["https://zachyoung.dev/blog", "https://zachyoung.dev/blog?_data=routes%2Fblog"] }'
