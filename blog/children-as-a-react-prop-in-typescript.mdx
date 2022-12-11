@@ -1,0 +1,129 @@
+---
+title: "Children as a React prop in TypeScript"
+createdAt: "2021-12-31"
+description: "How to type the 'children' prop for React Typescript components."
+tags:
+  - react
+  - typescript
+---
+
+I decided to convert my personal website from JavaScript to TypeScript.
+During the process I had the question: "How do I handle the children prop?"
+
+Let's answer this question by converting this simple React component from JavaScript to TypeScript:
+
+{/* prettier-ignore */}
+```jsx
+const Button = ({ className, children }) => {
+  return (
+    <button className={className}>
+      {children}
+    </button>
+  );
+};
+```
+
+Here are a few solutions I found:
+
+## PropsWithChildren Type
+
+This was the simplest solution and the one I ended up implementing.
+`PropsWithChildren` is a generic type that can be passed a type which will then return that same type with an added `children` type.
+Sounds confusing if you're not familiar with generics, however in my eyes this solution looks the cleanest.
+
+```tsx /PropsWithChildren/
+import { PropsWithChildren } from "react";
+
+interface Props {
+  className: string;
+}
+
+const Button = ({ className, children }: PropsWithChildren<Props>) => {
+  return <button className={className}>{children}</button>;
+};
+```
+
+## FunctionalComponent (FC) Type
+
+This solution is similar to the previous solution, however instead of using a generic type for the props, we use a generic type for the component.
+I don't find this solution to be as readable as the previous solution, but it works exactly the same.
+
+{/* prettier-ignore */}
+```tsx /FC/
+import { FC } from "react";
+
+interface Props {
+  className: string;
+}
+
+const Button: FC<Props> = ({ className, children }) => {
+  return (
+    <button className={className}>
+      {children}
+    </button>
+  );
+};
+```
+
+## ReactNode Type
+
+In this solution we add the children prop to the type ourselves. The above solutions essentially do the same thing, however here we do the work ourselves.
+We could also use `ReactChild` or `ReactElement` here, however they don't account for all potential children types such as strings, booleans, etc.
+I don't prefer this method as I like to have code abstracted away from me,
+however it can be useful in certain situations where it doesn't make sense to use the other solutions.
+
+```tsx /ReactNode/
+import { ReactNode } from "react";
+
+interface Props {
+  className: string;
+  children?: ReactNode | undefined;
+}
+
+const Button: = ({ className, children }: Props) => {
+  return (
+    <button className={className}>
+      {children}
+    </button>
+  );
+};
+```
+
+## What if I only want to pass children?
+
+For our first two solutions, we can pass an empty interface as the type parameter to the generic type.
+This will give us a type that only has `children` as a property type on it.
+For our last solution, we can only include the `children` property type.
+Let's look at the previous examples and redo them with only `children` as a prop.
+
+```tsx
+import { PropsWithChildren } from "react";
+
+interface Props {}
+
+const Button = ({ children }: PropsWithChildren<Props>) => {
+  return <button>{children}</button>;
+};
+```
+
+```tsx
+import { FC } from "react";
+
+interface Props {}
+
+const Button: FC<Props> = ({ children }) => {
+  return <button>{children}</button>;
+};
+```
+
+```tsx
+import { ReactNode } from "react";
+
+interface Props {
+  children?: ReactNode | undefined;
+}
+
+const Button: = ({ children }: Props) => {
+  return <button>{children}</button>;
+};
+```

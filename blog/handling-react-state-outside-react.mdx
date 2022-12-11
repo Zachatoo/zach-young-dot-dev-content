@@ -1,0 +1,160 @@
+---
+title: "Handling React state outside of React"
+createdAt: "2021-12-13"
+description: "How to call the setState function safely when using third-party libraries that are not compatible with React."
+tags:
+  - react
+---
+
+Sometimes React doesn't play well with vanilla JavaScript event handlers that'd you're likely to come across in third party JavaScript libraries.
+
+One example I ran into recently was trying to use [Leaflet.js](https://leafletjs.com/) in a React application.
+
+Let's consider a simple example. Here is a standard React component with a button, which is being passed it's state and a toggle function:
+
+```jsx title="ReactButton.jsx"
+export default function ReactButton(props) {
+  const { reactButtonState, toggleReactButtonState } = props;
+
+  return (
+    <div>
+      <h2>React</h2>
+      <label htmlFor="react-button">{reactButtonState.toString()}</label>
+      <button onClick={toggleReactButtonState} id="react-button">
+        Click Me
+      </button>
+    </div>
+  );
+}
+```
+
+```jsx title="App.jsx"
+export default function App() {
+  const [reactButtonState, setReactButtonState] = useState(false);
+
+  function toggleReactButtonState() {
+    setReactButtonState(!reactButtonState);
+  }
+
+  return (
+    <div className="App">
+      <h1>Working with State with event handlers</h1>
+      <ReactButton
+        reactButtonState={reactButtonState}
+        toggleReactButtonState={toggleReactButtonState}
+      />
+    </div>
+  );
+}
+```
+
+If you run this code, everything will run as expected. As the button is clicked, state will be updated in the parent and passed down to the child. If the button is clicked again, state will updated once again.
+
+Let's look at an example where this doesn't work:
+
+```jsx title="JsButton.jsx" {12-13}
+export default function JsButton(props) {
+  const { id, buttonState, toggleButtonState } = props;
+
+  useEffect(() => {
+    if (document.querySelector(`#${id}`)) {
+      return;
+    }
+    const container = document.querySelector(`#${id}-container`);
+    const button = document.createElement("button");
+    button.innerHTML = "Click Me";
+    button.id = id;
+    button.addEventListener("click", toggleButtonState);
+    container.appendChild(button);
+  }, [id, buttonState, toggleButtonState]);
+
+  return (
+    <div id={`${id}-container`}>
+      <h2>JavaScript</h2>
+      <label htmlFor={id}>{buttonState.toString()}</label>
+    </div>
+  );
+}
+```
+
+Here, the button is being created using vanilla JavaScript instead of React and JSX. If you're using a vanilla JavaScript library with event listeners such as Leaflet.js, socket.io, etc then any buttons that are rendered dynamically will likely be created in a similar way.
+
+Let's add this button and another useState to our main application:
+
+```jsx title="App.jsx"
+export default function App() {
+  const [jsButtonState, setJsButtonState] = useState(false);
+
+  function toggleJsButtonState() {
+    setJsButtonState(!jsButtonState);
+  }
+
+  return (
+    <div className="App">
+      <h1>Working with State with event handlers</h1>
+      <JsButton
+        id="js-button"
+        buttonState={jsButtonState}
+        toggleButtonState={toggleJsButtonState}
+      />
+    </div>
+  );
+}
+```
+
+When the second button is clicked, you'll notice that the first time the event handler is run, it successfully changes the state to true! However, on subsequent runs, the state does not change.
+
+If we `console.log(jsButtonState)` inside the `toggleJsButtonState` function, we'll notice that `jsButtonState` is always false. Why is this?
+
+Turns out that when we're adding the event listener to the JsButton, the state is preserved from the render in which the function was registered to the event listener.
+
+## Solutions
+
+One way to solve this is to use a setter function when setting the state. This will ensure that even though the event listener has the incorrect state, it will run the arrow function inside the setState function to retrieve the current value and update based on that.
+
+```javascript
+function toggleJsButtonState() {
+  setJsButtonState((prev) => !prev);
+}
+```
+
+Another solution is to use a ref to access the current state. We can create a custom hook to abstract this away for us:
+
+```jsx title="useStateRef.js"
+export default function useStateRef(initialValue) {
+  const [state, _setState] = useState(initialValue);
+  const ref = useRef(initialValue);
+
+  function setState(value) {
+    _setState(value);
+    ref.current = value;
+  }
+
+  return [state, setState, ref];
+}
+```
+
+Then in our parent component we can update the state based on the value of the current value in the ref:
+
+```jsx title="App.jsx" {2,5}
+export default function App() {
+  const [refButtonState, setRefButtonState, refButtonRef] = useStateRef(false);
+
+  function toggleCustomButtonState() {
+    setRefButtonState(!refButtonRef.current);
+  }
+
+  return (
+    <div className="App">
+      <h1>Working with State with event handlers</h1>
+      <JsButton
+        id="ref-button"
+        buttonState={refButtonState}
+        toggleButtonState={toggleCustomButtonState}
+      />
+    </div>
+  );
+}
+```
+
+Most often you can get away with using a setter function to access the current state. Sometimes it may be better to use the ref method if you need to access the state without updating it, or if you need to update multiple pieces of state using the values of one piece of state.

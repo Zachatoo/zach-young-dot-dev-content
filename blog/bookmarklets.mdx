@@ -1,0 +1,43 @@
+---
+title: "Bookmarklets"
+createdAt: "2022-11-06"
+description: "What they are, why they're useful, and how to create them."
+tags:
+  - javascript
+---
+
+In this post, we're going to look into what is a bookmarklet, why they are useful, and how to create one yourself.
+
+## What is a bookmarklet?
+
+A bookmarklet is a way to run some javascript using bookmarks. Essentially, instead of storing a URL to a website in a bookmark, we can store javascript code that will execute when we open the bookmark.
+
+## Why are bookmarklets useful?
+
+Bookmarklets can give us easy access to frequently used scripts that we need to run on websites. Instead of storing the script on GitHub or a file somewhere, we can store it in a bookmark and run it with the click of a mouse.
+
+They're also easily sharable. It's a lot easier to convince my friends to create a bookmark with a script in it than to ask them to open the developer console and paste in a script. Bookmarks are familiar, the developer console is not.
+
+I recently [created a bookmarklet](/snippets/download-shootproof-photos-bookmarklet) to scroll through a long list of 300+ images on a website and download the high resolution images one by one. Creating a bookmarklet made it super convenient for when I needed to run the script again, I just clicked the bookmark and the script was running.
+
+## How to create a bookmarklet
+
+First we'll create a script. For our example, we'll have a simple script that simple shows an alert.
+
+```js
+alert("Hello world!");
+```
+
+Next, we'll "bookmarklet-ify" it! To do that, we simple wrap the script in an [IIFE](https://developer.mozilla.org/en-US/docs/Glossary/IIFE) (immediately invoked function expression) and throw `javascript:` in front of it.
+
+```js
+javascript: (function () {
+  alert("Hello world!");
+})();
+```
+
+Now we create a bookmark and paste the above code as the URL for the bookmark and save it.
+
+You can now click on the bookmark and you'll get an alert that says "Hello world!"
+
+What ideas do you have for bookmarklets?

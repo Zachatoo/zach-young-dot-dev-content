@@ -1,0 +1,265 @@
+---
+title: "Creating a useCountdown React hook"
+createdAt: "2022-08-29"
+description: "I show you the process for creating a React hook for getting the days, hours, minutes, and seconds until an event, with tests to boot!"
+tags:
+  - react
+  - testing
+---
+
+For my [wedding website](https://bryneryoungwedding.us) I wanted to include a countdown to count down to the big day! Here's how I went about creating a useCountdown component.
+
+For those of you who just want to see what the final code looks like without seeing my process, you can [click me](#final-code) to skip to the final code.
+
+## Humble beginnings
+
+We'll start by creating a hook that will simply return zero for the days, hours, minutes, and seconds. We'll iterate on this later.
+
+```jsx title="useCountdown.jsx"
+export function useCountdown(targetDate) {
+  const days = 0;
+  const hours = 0;
+  const minutes = 0;
+  const seconds = 0;
+  return { days, hours, minutes, seconds };
+}
+```
+
+Then we'll create some basic components to display the results of the useCountdown hook. I'm using [Tailwindcss](https://tailwindcss.com/) for styling, but you can style these components using whatever methods you prefer.
+
+```jsx title="Countdown.jsx"
+import { useCountdown } from "./useCountdown";
+
+export function Countdown(targetDate) {
+  const { days, hours, minutes, seconds } = useCountdown(targetDate);
+
+  return (
+    <div className="mx-auto my-3 flex max-w-min gap-6 rounded-lg border p-4">
+      <CountdownItem type="days" value={days} />
+      <CountdownItem type="hours" value={hours} />
+      <CountdownItem type="minutes" value={minutes} />
+      <CountdownItem type="seconds" value={seconds} />
+    </div>
+  );
+}
+
+function CountdownItem({ type, value }) {
+  return (
+    <div className="flex flex-col text-center text-lg">
+      <span data-testid={`countdown-${type}`}>{value}</span>
+      <span>{type}</span>
+    </div>
+  );
+}
+```
+
+## Writing the tests
+
+Before we do too much work, let's go ahead and write some test cases to test against so we can get instant feedback while we're building this. We should test for a few scenarios:
+
+- If the current time is less than the target time, show the expected positive numbers.
+- If the current time matches the target time, show all zeroes.
+- If the current time is greater than the target time, start showing negative numbers.
+
+```jsx title="Countdown.test.jsx"
+import { vi } from "vitest";
+import { cleanup, render, screen } from "@testing-library/react";
+import { Countdown } from "../Countdown";
+
+describe("Countdown", () => {
+  beforeEach(() => {
+    cleanup();
+    // tell vitest we use mocked time
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    // restoring date after each test run
+    vi.useRealTimers();
+  });
+
+  it("shows positive numbers if current time is before target time", () => {
+    const mockCurrentDate = new Date("2022-08-30 13:28:59.000-06:00");
+    const mockTargetDate = new Date("2022-08-31 14:30:00.000-06:00");
+    vi.setSystemTime(mockCurrentDate);
+    render(<Countdown targetDate={mockTargetDate} />);
+
+    const daysValue = screen.getByTestId("countdown-days").innerHTML;
+    const hoursValue = screen.getByTestId("countdown-hours").innerHTML;
+    const minutesValue = screen.getByTestId("countdown-minutes").innerHTML;
+    const secondsValue = screen.getByTestId("countdown-seconds").innerHTML;
+
+    expect(daysValue).toBe("1");
+    expect(hoursValue).toBe("1");
+    expect(minutesValue).toBe("1");
+    expect(secondsValue).toBe("1");
+  });
+
+  it("shows all zeroes if current time is target time", () => {
+    const mockCurrentDate = new Date("2022-08-28 11:59:59.000-06:00");
+    const mockTargetDate = mockCurrentDate;
+    vi.setSystemTime(mockCurrentDate);
+    render(<Countdown targetDate={mockTargetDate} />);
+
+    const daysValue = screen.getByTestId("countdown-days").innerHTML;
+    const hoursValue = screen.getByTestId("countdown-hours").innerHTML;
+    const minutesValue = screen.getByTestId("countdown-minutes").innerHTML;
+    const secondsValue = screen.getByTestId("countdown-seconds").innerHTML;
+
+    expect(daysValue).toBe("0");
+    expect(hoursValue).toBe("0");
+    expect(minutesValue).toBe("0");
+    expect(secondsValue).toBe("0");
+  });
+
+  it("shows -1 seconds 1 second after target time", () => {
+    const mockCurrentDate = new Date("2022-08-31 14:30:01.000-06:00");
+    const mockTargetDate = new Date("2022-08-31 14:30:00.000-06:00");
+    vi.setSystemTime(mockCurrentDate);
+    render(<Countdown targetDate={mockTargetDate} />);
+
+    const daysValue = screen.getByTestId("countdown-days").innerHTML;
+    const hoursValue = screen.getByTestId("countdown-hours").innerHTML;
+    const minutesValue = screen.getByTestId("countdown-minutes").innerHTML;
+    const secondsValue = screen.getByTestId("countdown-seconds").innerHTML;
+
+    expect(daysValue).toBe("0");
+    expect(hoursValue).toBe("0");
+    expect(minutesValue).toBe("0");
+    expect(secondsValue).toBe("-1");
+  });
+});
+```
+
+These tests should provide decent coverage to help us to know that the hook is working.
+
+## Creating the hook
+
+First, we need to get the difference in time between now and the target date. We can do this pretty easily by subtracting the time from each other `targetDate.getTime() - new Date().getTime()`. This will give us the number of milliseconds between now and the target date.
+
+Next, we need to convert that time in milliseconds to days, hours, minutes, and seconds. The math to do that will look something like this.
+
+```js
+const days = Math.floor(millisecondsUntilTargetDate / (1000 * 60 * 60 * 24));
+const hours = Math.floor(
+  (millisecondsUntilTargetDate % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+);
+const minutes = Math.floor(
+  (millisecondsUntilTargetDate % (1000 * 60 * 60)) / (1000 * 60)
+);
+const seconds = Math.floor((millisecondsUntilTargetDate % (1000 * 60)) / 1000);
+```
+
+We can use `setInterval()` to run a function to check the time left every second and then return that new value as the result of the hook. All together, the resulting hook will look something like this:
+
+```jsx title="useCountdown.jsx"
+import { useEffect, useState } from "react";
+
+export function useCountdown(targetDate) {
+  const [millisecondsTillTargetTime, setMillisecondsTillTargetTime] = useState(
+    targetDate.getTime() - new Date().getTime()
+  );
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMillisecondsTillTargetTime(
+        targetDate.getTime() - new Date().getTime()
+      );
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [targetDate]);
+
+  return getReturnValues(millisecondsTillTargetTime);
+}
+
+const getReturnValues = (millisecondsTillTargetTime) => {
+  // Calculate time left in various time intervals
+  const days = Math.floor(millisecondsTillTargetTime / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (millisecondsTillTargetTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = Math.floor(
+    (millisecondsTillTargetTime % (1000 * 60 * 60)) / (1000 * 60)
+  );
+  const seconds = Math.floor((millisecondsTillTargetTime % (1000 * 60)) / 1000);
+
+  return { days, hours, minutes, seconds };
+};
+```
+
+Most of our tests pass now! ...Except for the last one. Looks like using `Math.floor` worked great for positive numbers, but not so great for negative numbers, so the last test case results in -1 days, -1 hours, -1 minutes, -1 seconds instead of the expected 0 days, 0 hours, 0 minutes, -1 seconds.
+
+Let's adjust the logic in the `getReturnValues` function to conditionally use `Math.floor` or `Math.ceil` depending on if the number is positive or negative.
+
+```jsx title="useCountdown.jsx"
+const getReturnValues = (millisecondsTillTargetTime) => {
+  // Calculate time left in various time intervals
+  const days = round(millisecondsTillTargetTime / (1000 * 60 * 60 * 24));
+  const hours = round(
+    (millisecondsTillTargetTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = round(
+    (millisecondsTillTargetTime % (1000 * 60 * 60)) / (1000 * 60)
+  );
+  const seconds = round((millisecondsTillTargetTime % (1000 * 60)) / 1000);
+
+  return { days, hours, minutes, seconds };
+};
+
+// Round down if positive number, round up if negative number
+function round(value) {
+  if (value > 0) {
+    return Math.floor(value);
+  }
+  return Math.ceil(value);
+}
+```
+
+And there we go! All of our test cases are passing!
+
+## Final code
+
+```jsx title="useCountdown.jsx"
+import { useEffect, useState } from "react";
+
+export function useCountdown(targetDate) {
+  const [millisecondsTillTargetTime, setMillisecondsTillTargetTime] = useState(
+    targetDate.getTime() - new Date().getTime()
+  );
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMillisecondsTillTargetTime(
+        targetDate.getTime() - new Date().getTime()
+      );
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [targetDate]);
+
+  return getReturnValues(millisecondsTillTargetTime);
+}
+
+const getReturnValues = (millisecondsTillTargetTime) => {
+  // Calculate time left in various time intervals
+  const days = round(millisecondsTillTargetTime / (1000 * 60 * 60 * 24));
+  const hours = round(
+    (millisecondsTillTargetTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
+  const minutes = round(
+    (millisecondsTillTargetTime % (1000 * 60 * 60)) / (1000 * 60)
+  );
+  const seconds = round((millisecondsTillTargetTime % (1000 * 60)) / 1000);
+
+  return { days, hours, minutes, seconds };
+};
+
+// Round down if positive number, round up if negative number
+function round(value) {
+  if (value > 0) {
+    return Math.floor(value);
+  }
+  return Math.ceil(value);
+}
+```

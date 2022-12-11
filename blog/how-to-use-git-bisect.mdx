@@ -1,0 +1,72 @@
+---
+title: "How to use git bisect"
+createdAt: "2022-04-13"
+description: "How to find which commit introduced a bug when you have nowhere else to turn."
+tags:
+  - git
+---
+
+Today I was briefly looking over my website and realized that some of my CSS transition animations weren't working correctly.
+Instead of easing in and out of the animation, the transition was happening immediately.
+I wasn't totally sure when this bug was introduced, so how do I figure out when it happened so I can fix it?
+
+## The Solution
+
+This is a great use case for [git bisect](https://git-scm.com/docs/git-bisect).
+In order to use `git bisect`, you must have a general idea of when the bug did not exist.
+In my case, I felt pretty confident that the bug did not exist a week ago, which was only about 20-30 commits,
+which isn't bad at all to bisect through.
+
+Once you know that, we can start running the commands. These are the three main commmands:
+
+```bash
+git bisect start         # start the bisect process
+git bisect bad           # tell git that our current commit has a bug
+git bisect good <commit> # tell git which commit we know did not have the bug
+```
+
+After we run the third command, git will start "bisecting" the commits between the bad commit and the good commit.
+This means that `git bisect` will checkout a commit between the bad commit and the good commit for us to test if the bug exists in that commit.
+If it does, then we tell `git bisect` that the bug exists with the `git bisect bad` command.
+If the bug does not exist in that commit, then we use the `git bisect good` command.
+Then we repeat the process until we find the exact commit in which the bug was introduced.
+
+## Example
+
+We'll run through my example. First, I start the process with the following commands:
+
+```shell
+git bisect start
+git bisect bad
+```
+
+Now, I look through my commit history and make a guess on when I think the bug did not exist, and throw that commit in the `git bisect good` command.
+
+```shell
+git bisect good 2762d7c18981f0f79c1afd574960ed560072bcbe
+```
+
+`git bisect` will now checkout a commit between the good commit and the bad commit, and I get the following prompt in my terminal which tells me which commit I currently have checked out:
+
+```txt
+Bisecting: 13 revisions left to test after this (roughly 4 steps)
+[2870f3b77b95ccbfbd86846ae48ecb1288aaf524] Add tests for home page
+```
+
+Now I can check my website at this commit and see if the bug still exists.
+In my case, the bug did not exist at this commit, so I can let `git bisect` know that the commit is good with the following command:
+
+```shell
+git bisect good
+```
+
+I once again am prompted with a similar message from last time, and I am checked out to the middle commit between the commit that was just checked out and the bad commit.
+I rinse and repeat the previous steps of checking to see if the bug exists, typing either `git bisect good` or `git bisect bad` in the terminal, until we identify the exact commit in which the bug was introduced.
+
+## Resetting
+
+If you ever need to stop the `git bisect`, you can run the following command to reset back to your original HEAD position.
+
+```shell
+git reset
+```
