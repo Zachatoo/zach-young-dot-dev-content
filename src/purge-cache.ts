@@ -62,7 +62,13 @@ const batches = Array.from(urlsToPurge).reduce((acc, curr) => {
 
 console.info("Purging the following urls", batches);
 
-const promises = batches.map((files) => {
+batches.forEach(async (batch, index) => {
+  console.info(`Processing batch ${index + 1}`);
+  await purgeCachedFiles(batch);
+  console.info(`Finished processing batch ${index + 1}`);
+});
+
+function purgeCachedFiles(files: string[]) {
   const body = JSON.stringify({ files });
 
   const options = {
@@ -74,15 +80,8 @@ const promises = batches.map((files) => {
     body,
   };
 
-  return () =>
-    fetch(
-      `https://api.cloudflare.com/client/v4/zones/${zone}/purge_cache`,
-      options,
-    );
-});
-
-promises.forEach(async (promise, index) => {
-  console.info(`Processing batch ${index + 1}`);
-  await promise();
-  console.info(`Finished processing batch ${index + 1}`);
-});
+  return fetch(
+    `https://api.cloudflare.com/client/v4/zones/${zone}/purge_cache`,
+    options,
+  );
+}
