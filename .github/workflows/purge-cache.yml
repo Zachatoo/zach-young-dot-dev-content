@@ -21,6 +21,7 @@ jobs:
           json: "true"
           files: |
             snippets/**
+            blog/**
 
       - name: List modified files
         if: ${{ steps.changed-files.outputs.any_modified == 'true' }}
