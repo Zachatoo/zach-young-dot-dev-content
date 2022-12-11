@@ -1,0 +1,15 @@
+{
+  "New blog post template": {
+    "body": [
+      "---",
+      "title: \"$1\"",
+      "createdAt: \"$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\"",
+      "description: \"$2\"",
+      "tags:",
+      "  - $3",
+      "---",
+      "$0"
+    ],
+    "description": "Add metadata to a new blog post."
+  }
+}
