@@ -26,7 +26,7 @@ jobs:
       - name: List modified files
         if: ${{ steps.changed-files.outputs.any_modified == 'true' }}
         run: |
-          for file in ${{ steps.changed-files.outputs.modified_files }}; do
+          for file in ${{ steps.changed-files.outputs.all_changed_and_modified_files }}; do
             echo "$file was modified"
           done
 
@@ -38,4 +38,4 @@ jobs:
 
       - name: Purge modified files
         if: ${{ steps.changed-files.outputs.any_modified == 'true' }}
-        run: "deno run --allow-net src/purge-cache.ts --paths '${{ steps.changed-files.outputs.modified_files }}' --token ${{ secrets.CF_TOKEN }} --zone ${{ secrets.CF_ZONE }}"
+        run: "deno run --allow-net src/purge-cache.ts --paths '${{ steps.changed-files.outputs.all_changed_and_modified_files }}' --token ${{ secrets.CF_TOKEN }} --zone ${{ secrets.CF_ZONE }}"
