@@ -30,6 +30,7 @@ if (
 }
 
 const urlsToPurge: Set<string> = new Set();
+
 pathsArr.forEach((pathWithExtension: string) => {
   if (!(typeof pathWithExtension === "string")) {
     return;
@@ -46,6 +47,12 @@ pathsArr.forEach((pathWithExtension: string) => {
   urlsToPurge.add(`${BASE_URL}/${path}?_data=routes%2F${route}.%24slug`);
   // JSON request for parent page
   urlsToPurge.add(`${BASE_URL}/${route}?_data=routes%2F${route}`);
+
+  // purge home page if any blog pages were modified
+  if (route === "blog") {
+    urlsToPurge.add(`${BASE_URL}/`);
+    urlsToPurge.add(`${BASE_URL}/?_data=routes%2Findex`);
+  }
 });
 
 const BATCH_SIZE = 30;
