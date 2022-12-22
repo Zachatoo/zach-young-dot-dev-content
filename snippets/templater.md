@@ -8,6 +8,17 @@ tags:
 
 Snippets I've written for the [Templater](https://github.com/SilentVoid13/Templater) Obsidian plugin.
 
+## Update frontmatter
+
+```js title="increment-template.md"
+<%*
+const file = tp.file.find_tfile(tp.file.title);
+await app.fileManager.processFrontMatter(file, (frontmatter) => {
+  frontmatter["review count"] += 1;
+})
+-%>
+```
+
 ## Reuse value from prompt or suggester
 
 Instead of prompting for the same value multiple times, you can prompt for it once, store it in a variable, and reference that variable multiple times.
