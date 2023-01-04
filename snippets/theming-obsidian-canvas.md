@@ -3,7 +3,7 @@ title: "Theming Obsidian canvas"
 createdAt: "2022-12-18"
 description: "Changing the default colors for Obsidian's canvas plugin."
 tags:
-  - obsidian
+  - obsidianmd
   - css
 ---
 
