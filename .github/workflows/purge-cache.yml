@@ -19,9 +19,13 @@ jobs:
         uses: tj-actions/changed-files@v34.5.1
         with:
           json: "true"
-          files: |
-            snippets/**
-            blog/**
+          files_ignore: |
+            .github/**
+            .vscode/**
+            src/**
+            deno.json
+            deno.lock
+            README.md
 
       - name: List modified files
         if: ${{ steps.changed-files.outputs.any_modified == 'true' }}
