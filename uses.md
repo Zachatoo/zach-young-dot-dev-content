@@ -1,8 +1,10 @@
 ---
 title: "Uses"
 createdAt: "2023-01-07"
-description: "Tools that I'm currently using."
+description: "List of tools that I'm currently using."
 ---
+
+List of tools that I'm currently using.
 
 ## Software
 
