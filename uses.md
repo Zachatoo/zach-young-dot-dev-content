@@ -1,6 +1,6 @@
 ---
 title: "Uses"
-createdAt: "2023-01-07"
+updatedAt: "2023-01-07"
 description: "List of tools that I'm currently using."
 ---
 
