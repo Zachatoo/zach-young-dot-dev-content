@@ -8,6 +8,22 @@ tags:
 
 Snippets I've written for the [Templater](https://github.com/SilentVoid13/Templater) Obsidian plugin.
 
+## Using `tp.file.include` in a user script
+
+In order to use `tp.file.include` in a user script, you must return the result of `tp.file.include` at the end of the function. The `return` keyword is important.
+
+```js title="test.js"
+function test(tp) {
+  return tp.file.include("[[test-template]]");
+}
+
+module.exports = test;
+```
+
+```js title="template.md"
+<% tp.user.test(tp) %>
+```
+
 ## Daily note links to yesterday and tomorrow
 
 We can pass in a format, offset, reference, and reference format to [tp.date.now](https://silentvoid13.github.io/Templater/internal-functions/internal-modules/date-module.html#tpdatenowformat-string--yyyy-mm-dd-offset-numberstring-reference-string-reference_format-string) to create links to yesterday and tomorrow relative to the active daily note, instead of being relative to the actual current date.
