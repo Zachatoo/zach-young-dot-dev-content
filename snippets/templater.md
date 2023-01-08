@@ -8,7 +8,7 @@ tags:
 
 Snippets I've written for the [Templater](https://github.com/SilentVoid13/Templater) Obsidian plugin.
 
-## Using `tp.file.include` in a user script
+## Using tp.file.include in a user script
 
 In order to use `tp.file.include` in a user script, you must return the result of `tp.file.include` at the end of the function. The `return` keyword is important.
 
