@@ -8,6 +8,19 @@ tags:
 
 Snippets I've written for the [Templater](https://github.com/SilentVoid13/Templater) Obsidian plugin.
 
+## Suggester for files in a specific folder
+
+We use `app.vault.getMarkdownFiles()` to get all the markdown files in the vault, then `.filter()` them down to only files in a specific folder. Then use `tp.system.suggester` using those markdown files.
+
+```js
+<%*
+const items = app.vault.getMarkdownFiles().filter(x => x.parent?.path === "Folder Name");
+const selectedItem = (await tp.system.suggester((item) => item.basename, items)).basename;
+-%>
+
+[[<% selectedItem %>]]
+```
+
 ## Using tp.file.include in a user script
 
 In order to use `tp.file.include` in a user script, you must return the result of `tp.file.include` at the end of the function. The `return` keyword is important.
