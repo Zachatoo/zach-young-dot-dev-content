@@ -22,9 +22,8 @@ const cache = app.metadataCache;
 const files = app.vault.getMarkdownFiles();
 
 const latestTFileWithTag = files.reduce((currLatestTFileWithTag, file) => {
-  const fileCache = cache.getFileCache(file);
-
   // Get all tags for file we're currently checking
+  const fileCache = cache.getFileCache(file);
 	const tags = tp.obsidian.getAllTags(fileCache);
 
 	// If file has tag and if that file was modified more recently than the currently found most recently modified file, then set most recently modified file to file
