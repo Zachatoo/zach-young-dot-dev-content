@@ -24,13 +24,13 @@ const files = app.vault.getMarkdownFiles();
 const latestTFileWithTag = files.reduce((currLatestTFileWithTag, file) => {
   // Get all tags for file we're currently checking
   const fileCache = cache.getFileCache(file);
-	const tags = tp.obsidian.getAllTags(fileCache);
+  const tags = tp.obsidian.getAllTags(fileCache);
 
-	// If file has tag and if that file was modified more recently than the currently found most recently modified file, then set most recently modified file to file
-	if (tags.includes(tag) && (!currLatestTFileWithTag || currLatestTFileWithTag.stat.mtime < file.stat.mtime)) {
-		currLatestTFileWithTag = file;
-	}
-	return currLatestTFileWithTag;
+  // If file has tag and if that file was modified more recently than the currently found most recently modified file, then set most recently modified file to file
+  if (tags.includes(tag) && (!currLatestTFileWithTag || currLatestTFileWithTag.stat.mtime < file.stat.mtime)) {
+    currLatestTFileWithTag = file;
+  }
+  return currLatestTFileWithTag;
 }, null);
 
 // Get basename of TFile to be used in link
