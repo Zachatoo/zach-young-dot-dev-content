@@ -40,11 +40,11 @@ let template = DEFAULT_TEMPLATE;
 // For example, the "20 People" folder uses the "person-template" template
 // This is similar to how folder templates work
 const types = [
-	{ name: '20 People', template: 'person-template' },
-	{ name: '30 Terms', template: 'terms-template' },
-	{ name: '40 Sources', template: 'sources-template' },
-	{ name: '50 Projects', template: DEFAULT_TEMPLATE },
-	{ name: 'Seed Box', template: DEFAULT_TEMPLATE },
+  { name: '20 People', template: 'person-template' },
+  { name: '30 Terms', template: 'terms-template' },
+  { name: '40 Sources', template: 'sources-template' },
+  { name: '50 Projects', template: DEFAULT_TEMPLATE },
+  { name: 'Seed Box', template: DEFAULT_TEMPLATE },
 ];
 
 // Get the folder of the note
@@ -52,18 +52,18 @@ const folder = tp.file.folder();
 
 // If note is in default note location (likely from quick switcher) then prompt for type of note
 if (folder === 'Seed Box') {
-	const type = await tp.system.suggester(item => item.name, types);
-	if (type) {
-		template = type.template;
-		await tp.file.move(`${type.name}/${tp.file.title}`);
-	}
+  const type = await tp.system.suggester(item => item.name, types);
+  if (type) {
+    template = type.template;
+    await tp.file.move(`${type.name}/${tp.file.title}`);
+  }
 } else {
   // If note is not in default note location, then check if note location has defined type with template and use that
-	const type = types.find(item => item.name === folder);
-	if (type) {
-		template = type.template;
-		await tp.file.move(`${type.name}/${tp.file.title}`);
-	}
+  const type = types.find(item => item.name === folder);
+  if (type) {
+    template = type.template;
+    await tp.file.move(`${type.name}/${tp.file.title}`);
+  }
 }
 _%>
 <% await tp.file.include(`[[${template}]]`) %>
@@ -81,12 +81,12 @@ It will also place a heading at the top of the note with the note's title and pl
 const hasTitle = !tp.file.title.startsWith("Untitled");
 let title;
 
-  // If note does not have title, prompt for title and rename file
+// If note does not have title, prompt for title and rename file
 if (!hasTitle) {
-	title = await tp.system.prompt("Title");
-	await tp.file.rename(title);
+  title = await tp.system.prompt("Title");
+  await tp.file.rename(title);
 } else {
-	title = tp.file.title;
+  title = tp.file.title;
 }
 _%>
 
