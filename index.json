@@ -28,21 +28,21 @@
     ]
   },
   {
-    "slug": "/snippets/download-shootproof-photos-bookmarklet",
-    "title": "Download Shootproof photos bookmarklet",
-    "createdAt": "2022-10-21",
-    "description": "This bookmarklet is to download all of the photos from a Shootproof gallery. It'll go through each photo one by one and download the high quality image.",
-    "tags": [
-      "javascript"
-    ]
-  },
-  {
     "slug": "/snippets/dataview",
     "title": "Dataview snippets",
     "createdAt": "2022-10-21",
     "description": "Snippets I've written for the Dataview Obsidian plugin.",
     "tags": [
       "obsidianmd"
+    ]
+  },
+  {
+    "slug": "/snippets/download-shootproof-photos-bookmarklet",
+    "title": "Download Shootproof photos bookmarklet",
+    "createdAt": "2022-10-21",
+    "description": "This bookmarklet is to download all of the photos from a Shootproof gallery. It'll go through each photo one by one and download the high quality image.",
+    "tags": [
+      "javascript"
     ]
   },
   {

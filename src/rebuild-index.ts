@@ -10,20 +10,17 @@ const IGNORE_DIRECTORIES = [
   "src",
 ];
 
-interface IFrontmatter {
+interface IFrontmatterBasic {
   title: string;
   createdAt: string;
   description: string;
   tags: string[];
 }
-type FrontmatterWithSlug = IFrontmatter & {
+type Frontmatter = IFrontmatterBasic & {
   slug: string;
 };
-interface IIndex {
-  [key: string]: FrontmatterWithSlug;
-}
 
-const index: FrontmatterWithSlug[] = [];
+const index: Frontmatter[] = [];
 
 for await (const dirEntry of Deno.readDir("./")) {
   if (
@@ -61,7 +58,7 @@ for await (const dirEntry of Deno.readDir("./")) {
   }
 }
 
-index.sort(sortByCreatedAt);
+index.sort(sortByCreatedAtThenTitle);
 
 await writeJson("./index.json", index);
 
@@ -72,7 +69,7 @@ function isFrontmatterValid(
     description: unknown;
     tags: unknown;
   },
-): attrs is IFrontmatter {
+): attrs is IFrontmatterBasic {
   return typeof attrs.title === "string" &&
     typeof attrs.createdAt === "string" &&
     typeof attrs.description === "string" && isArrayOfStrings(attrs.tags);
@@ -90,6 +87,14 @@ async function writeJson(path: string, content: unknown) {
   }
 }
 
-function sortByCreatedAt(a: FrontmatterWithSlug, b: FrontmatterWithSlug) {
-  return new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf();
+function sortByCreatedAtThenTitle(a: Frontmatter, b: Frontmatter) {
+  const aCreatedAt = new Date(a.createdAt).valueOf();
+  const bCreatedAt = new Date(b.createdAt).valueOf();
+  if (aCreatedAt < bCreatedAt) {
+    return 1;
+  } else if (aCreatedAt > bCreatedAt) {
+    return -1;
+  }
+
+  return a.title > b.title ? 1 : -1;
 }
