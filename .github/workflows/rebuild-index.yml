@@ -5,9 +5,6 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
-env:
-  GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
 jobs:
   purge:
     name: Rebuild Index
@@ -17,7 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          token: ${{ env.GH_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Setup Deno
         uses: denoland/setup-deno@v1
