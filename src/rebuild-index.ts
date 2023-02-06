@@ -23,7 +23,7 @@ interface IIndex {
   [key: string]: FrontmatterWithSlug;
 }
 
-const index: IIndex = {};
+const index: FrontmatterWithSlug[] = [];
 
 for await (const dirEntry of Deno.readDir("./")) {
   if (
@@ -40,12 +40,12 @@ for await (const dirEntry of Deno.readDir("./")) {
           const extractedAttrs = { title, createdAt, description, tags };
 
           if (isFrontmatterValid(extractedAttrs)) {
-            index[nestedDirEntry.name] = {
+            index.push({
               slug: `/${dirEntry.name}/${
                 nestedDirEntry.name.replace(/\.md(x)?$/, "")
               }`,
               ...extractedAttrs,
-            };
+            });
           } else {
             console.info(
               `Invalid frontmatter for ./${dirEntry.name}/${nestedDirEntry.name}\n${extractedAttrs}`,
@@ -61,17 +61,9 @@ for await (const dirEntry of Deno.readDir("./")) {
   }
 }
 
-const orderedIndex: IIndex = Object.entries(index)
-  .sort(([, a], [, b]) => sortByCreatedAt(a, b))
-  .reduce(
-    (acc, [k, v]) => {
-      acc[k] = v;
-      return acc;
-    },
-    {} as IIndex,
-  );
+index.sort(sortByCreatedAt);
 
-await writeJson("./index.json", orderedIndex);
+await writeJson("./index.json", index);
 
 function isFrontmatterValid(
   attrs: {
