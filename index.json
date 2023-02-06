@@ -1,55 +1,6 @@
 {
-  "get-date-for-timezone-sql.md": {
-    "title": "Get date for timezone in SQL",
-    "createdAt": "2022-10-12",
-    "description": "Get current date for specific timezone when server is in UTC timezone.",
-    "tags": [
-      "sql"
-    ]
-  },
-  "log-entity-framework-generated-sql.md": {
-    "title": "Log Entity Framework generated SQL",
-    "createdAt": "2022-03-23",
-    "description": "Log generated SQL from Entity Framework.",
-    "tags": [
-      "sql",
-      "dotnet",
-      "csharp"
-    ]
-  },
-  "download-shootproof-photos-bookmarklet.md": {
-    "title": "Download Shootproof photos bookmarklet",
-    "createdAt": "2022-10-21",
-    "description": "This bookmarklet is to download all of the photos from a Shootproof gallery. It'll go through each photo one by one and download the high quality image.",
-    "tags": [
-      "javascript"
-    ]
-  },
-  "dataview.md": {
-    "title": "Dataview snippets",
-    "createdAt": "2022-10-21",
-    "description": "Snippets I've written for the Dataview Obsidian plugin.",
-    "tags": [
-      "obsidianmd"
-    ]
-  },
-  "templater.md": {
-    "title": "Templater snippets",
-    "createdAt": "2022-02-07",
-    "description": "Snippets I've written for the Templater Obsidian plugin.",
-    "tags": [
-      "obsidianmd"
-    ]
-  },
-  "click-all-unchecked-checkboxes.md": {
-    "title": "Click all unchecked checkboxes",
-    "createdAt": "2022-04-25",
-    "description": "Click on all unchecked checkboxes in the document.",
-    "tags": [
-      "javascript"
-    ]
-  },
   "theming-obsidian-canvas.md": {
+    "slug": "/snippets/theming-obsidian-canvas",
     "title": "Theming Obsidian canvas",
     "createdAt": "2022-12-18",
     "description": "Changing the default colors for Obsidian's canvas plugin.",
@@ -59,6 +10,7 @@
     ]
   },
   "folder-templates-with-quick-switcher.mdx": {
+    "slug": "/blog/folder-templates-with-quick-switcher",
     "title": "Folder templates with quick switcher",
     "createdAt": "2022-12-13",
     "description": "Setting up folder templates to work when creating files from the file explorer and from the quick switcher.",
@@ -66,7 +18,63 @@
       "obsidianmd"
     ]
   },
+  "bookmarklets.mdx": {
+    "slug": "/blog/bookmarklets",
+    "title": "Bookmarklets",
+    "createdAt": "2022-11-06",
+    "description": "What they are, why they're useful, and how to create them.",
+    "tags": [
+      "javascript"
+    ]
+  },
+  "download-shootproof-photos-bookmarklet.md": {
+    "slug": "/snippets/download-shootproof-photos-bookmarklet",
+    "title": "Download Shootproof photos bookmarklet",
+    "createdAt": "2022-10-21",
+    "description": "This bookmarklet is to download all of the photos from a Shootproof gallery. It'll go through each photo one by one and download the high quality image.",
+    "tags": [
+      "javascript"
+    ]
+  },
+  "dataview.md": {
+    "slug": "/snippets/dataview",
+    "title": "Dataview snippets",
+    "createdAt": "2022-10-21",
+    "description": "Snippets I've written for the Dataview Obsidian plugin.",
+    "tags": [
+      "obsidianmd"
+    ]
+  },
+  "get-date-for-timezone-sql.md": {
+    "slug": "/snippets/get-date-for-timezone-sql",
+    "title": "Get date for timezone in SQL",
+    "createdAt": "2022-10-12",
+    "description": "Get current date for specific timezone when server is in UTC timezone.",
+    "tags": [
+      "sql"
+    ]
+  },
+  "creating-a-use-countdown-react-hook.mdx": {
+    "slug": "/blog/creating-a-use-countdown-react-hook",
+    "title": "Creating a useCountdown React hook",
+    "createdAt": "2022-08-29",
+    "description": "I show you the process for creating a React hook for getting the days, hours, minutes, and seconds until an event, with tests to boot!",
+    "tags": [
+      "react",
+      "testing"
+    ]
+  },
+  "click-all-unchecked-checkboxes.md": {
+    "slug": "/snippets/click-all-unchecked-checkboxes",
+    "title": "Click all unchecked checkboxes",
+    "createdAt": "2022-04-25",
+    "description": "Click on all unchecked checkboxes in the document.",
+    "tags": [
+      "javascript"
+    ]
+  },
   "how-to-use-git-bisect.mdx": {
+    "slug": "/blog/how-to-use-git-bisect",
     "title": "How to use git bisect",
     "createdAt": "2022-04-13",
     "description": "How to find which commit introduced a bug when you have nowhere else to turn.",
@@ -74,7 +82,28 @@
       "git"
     ]
   },
+  "log-entity-framework-generated-sql.md": {
+    "slug": "/snippets/log-entity-framework-generated-sql",
+    "title": "Log Entity Framework generated SQL",
+    "createdAt": "2022-03-23",
+    "description": "Log generated SQL from Entity Framework.",
+    "tags": [
+      "sql",
+      "dotnet",
+      "csharp"
+    ]
+  },
+  "templater.md": {
+    "slug": "/snippets/templater",
+    "title": "Templater snippets",
+    "createdAt": "2022-02-07",
+    "description": "Snippets I've written for the Templater Obsidian plugin.",
+    "tags": [
+      "obsidianmd"
+    ]
+  },
   "children-as-a-react-prop-in-typescript.mdx": {
+    "slug": "/blog/children-as-a-react-prop-in-typescript",
     "title": "Children as a React prop in TypeScript",
     "createdAt": "2021-12-31",
     "description": "How to type the 'children' prop for React Typescript components.",
@@ -83,29 +112,13 @@
       "typescript"
     ]
   },
-  "bookmarklets.mdx": {
-    "title": "Bookmarklets",
-    "createdAt": "2022-11-06",
-    "description": "What they are, why they're useful, and how to create them.",
-    "tags": [
-      "javascript"
-    ]
-  },
   "handling-react-state-outside-react.mdx": {
+    "slug": "/blog/handling-react-state-outside-react",
     "title": "Handling React state outside of React",
     "createdAt": "2021-12-13",
     "description": "How to call the setState function safely when using third-party libraries that are not compatible with React.",
     "tags": [
       "react"
-    ]
-  },
-  "creating-a-use-countdown-react-hook.mdx": {
-    "title": "Creating a useCountdown React hook",
-    "createdAt": "2022-08-29",
-    "description": "I show you the process for creating a React hook for getting the days, hours, minutes, and seconds until an event, with tests to boot!",
-    "tags": [
-      "react",
-      "testing"
     ]
   }
 }
