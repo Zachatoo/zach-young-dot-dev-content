@@ -1,0 +1,28 @@
+name: Rebuild index
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  purge:
+    name: Rebuild Index
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: Rebuild index
+        run: "deno run --allow-read --allow-write src/rebuild-index.ts"
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Rebuild index
+          file_pattern: index.json
