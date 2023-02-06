@@ -16,10 +16,14 @@ interface IFrontmatter {
   description: string;
   tags: string[];
 }
+type FrontmatterWithSlug = IFrontmatter & {
+  slug: string;
+};
+interface IIndex {
+  [key: string]: FrontmatterWithSlug;
+}
 
-const index: {
-  [key: string]: IFrontmatter;
-} = {};
+const index: IIndex = {};
 
 for await (const dirEntry of Deno.readDir("./")) {
   if (
@@ -29,12 +33,19 @@ for await (const dirEntry of Deno.readDir("./")) {
       if (nestedDirEntry.isFile) {
         const fileName = `./${dirEntry.name}/${nestedDirEntry.name}`;
         const fileContents = await Deno.readTextFile(fileName);
+
         if (test(fileContents)) {
           const { title, createdAt, description, tags } =
             extract(fileContents).attrs;
           const extractedAttrs = { title, createdAt, description, tags };
+
           if (isFrontmatterValid(extractedAttrs)) {
-            index[nestedDirEntry.name] = extractedAttrs;
+            index[nestedDirEntry.name] = {
+              slug: `/${dirEntry.name}/${
+                nestedDirEntry.name.replace(/\.md(x)?$/, "")
+              }`,
+              ...extractedAttrs,
+            };
           } else {
             console.info(
               `Invalid frontmatter for ./${dirEntry.name}/${nestedDirEntry.name}\n${extractedAttrs}`,
@@ -50,7 +61,17 @@ for await (const dirEntry of Deno.readDir("./")) {
   }
 }
 
-await writeJson("./index.json", index);
+const orderedIndex: IIndex = Object.entries(index)
+  .sort(([, a], [, b]) => sortByCreatedAt(a, b))
+  .reduce(
+    (acc, [k, v]) => {
+      acc[k] = v;
+      return acc;
+    },
+    {} as IIndex,
+  );
+
+await writeJson("./index.json", orderedIndex);
 
 function isFrontmatterValid(
   attrs: {
@@ -75,4 +96,8 @@ async function writeJson(path: string, content: unknown) {
   } catch (e) {
     console.log(e);
   }
+}
+
+function sortByCreatedAt(a: FrontmatterWithSlug, b: FrontmatterWithSlug) {
+  return new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf();
 }
