@@ -42,7 +42,7 @@ cssclass: readable-line-width
 
 Changes the width of the readable line length setting to a specified amount. Check the [Mozilla Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/max-width) for valid max-width values.
 
-```css title="custom-readable-line-length"
+```css title="custom-readable-line-length.css"
 :root {
   --custom-readable-line-width: 1000px; /* set width here */
 }
