@@ -25,6 +25,7 @@ jobs:
             src/**
             deno.json
             deno.lock
+            index.json
             README.md
 
       - name: List modified files
