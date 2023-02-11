@@ -1,5 +1,15 @@
 [
   {
+    "slug": "/snippets/obsidian-readable-line-length",
+    "title": "Obsidian readable line length",
+    "createdAt": "2023-02-11",
+    "description": "Customizing the readable line length setting.",
+    "tags": [
+      "obsidianmd",
+      "css"
+    ]
+  },
+  {
     "slug": "/snippets/theming-obsidian-canvas",
     "title": "Theming Obsidian canvas",
     "createdAt": "2022-12-18",
