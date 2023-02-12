@@ -8,6 +8,20 @@ tags:
 
 Snippets I've written for the [Templater](https://github.com/SilentVoid13/Templater) Obsidian plugin.
 
+## Suggester for tags
+
+This script will show a modal with a searchable list of tags you can select from.
+
+```js
+<% tp.system.suggester(item => item, Object.keys(app.metadataCache.getTags())) %>
+```
+
+This variation will remove the `#` symbol from the tags, for use in YAML (since the `#` symbol denotes a comment and will not work in YAML).
+
+```js
+<% tp.system.suggester(item => item, Object.keys(app.metadataCache.getTags()).map(x => x.replace("#", ""))) %>
+```
+
 ## Get most recently modified file with specific tag
 
 This script will give you a link to the most recently modified file in your vault with a specific tag.
