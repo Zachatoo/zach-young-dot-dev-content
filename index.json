@@ -109,7 +109,8 @@
     "createdAt": "2022-02-07",
     "description": "Snippets I've written for the Templater Obsidian plugin.",
     "tags": [
-      "obsidianmd"
+      "obsidianmd",
+      "javascript"
     ]
   },
   {
