@@ -100,7 +100,6 @@
     "description": "Log generated SQL from Entity Framework.",
     "tags": [
       "sql",
-      "dotnet",
       "csharp"
     ]
   },
