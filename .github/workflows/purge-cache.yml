@@ -10,6 +10,10 @@ jobs:
     name: Get Changed Files
     runs-on: ubuntu-latest
 
+    outputs:
+      any_modified: ${{ steps.changed-files.outputs.any_modified }}
+      all_changed_and_modified_files: ${{ steps.changed-files.outputs.all_changed_and_modified_files }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -34,9 +38,12 @@ jobs:
 
   rebuild-index:
     name: Rebuild Index
-    if: ${{ steps.changed-files.outputs.any_modified == 'true' }}
     needs: [changed-files]
+    if: ${{ needs.changed-files.outputs.any_modified == 'true' }}
     runs-on: ubuntu-latest
+
+    outputs:
+      index_rebuilt: ${{ steps.auto-commit-action.outputs.changes_detected }}
 
     steps:
       - name: Checkout
@@ -59,8 +66,8 @@ jobs:
 
   purge-cache:
     name: Purge Cache
-    if: ${{ steps.changed-files.outputs.any_modified == 'true' }}
     needs: [changed-files, rebuild-index]
+    if: ${{ needs.changed-files.outputs.any_modified == 'true' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -69,7 +76,7 @@ jobs:
         with:
           # Retrieve the proceeding commit if index was rebuilt, otherwise retrieve current commit
           # https://github.com/actions/runner/issues/409
-          fetch-depth: ${{ (steps.auto-commit-action.outputs.changes_detected == 'true' && 2) || 0 }}
+          fetch-depth: ${{ (needs.rebuild-index.outputs.index_rebuilt == 'true' && 2) || 0 }}
 
       - name: Setup Deno
         uses: denoland/setup-deno@v1
@@ -78,4 +85,4 @@ jobs:
 
       - name: Purge Modified Files
         run: |
-          "deno run --allow-net src/purge-cache.ts --paths '${{ steps.changed-files.outputs.all_changed_and_modified_files }} ${{ (steps.auto-commit-action.outputs.changes_detected == 'true' && 'index.json') || '' }}' --token ${{ secrets.CF_TOKEN }} --zone ${{ secrets.CF_ZONE }}"
+          "deno run --allow-net src/purge-cache.ts --paths '${{ needs.changed-files.outputs.all_changed_and_modified_files }} ${{ (needs.rebuild-index.outputs.index_rebuilt == 'true' && 'index.json') || '' }}' --token ${{ secrets.CF_TOKEN }} --zone ${{ secrets.CF_ZONE }}"
