@@ -20,16 +20,30 @@ if (!zone) {
   Deno.exit(1);
 }
 
-const pathsArr = JSON.parse(paths.replaceAll("\\", ""));
+let pathsArr = paths.split(/\s*/).filter(Boolean);
 if (
   !Array.isArray(pathsArr) ||
   !pathsArr.every((path) => typeof path === "string")
 ) {
-  console.error("--paths must be an array of strings");
+  console.error("--paths must be a whitespace delimited list of strings");
   Deno.exit(1);
 }
 
 const urlsToPurge: Set<string> = new Set();
+
+if (pathsArr.some((path: string) => path === "index.json")) {
+  // purge home page
+  urlsToPurge.add(`${BASE_URL}/`);
+  urlsToPurge.add(`${BASE_URL}/?_data=routes%2Findex`);
+  // purge blog list page
+  urlsToPurge.add(`${BASE_URL}/blog`);
+  urlsToPurge.add(`${BASE_URL}/blog?_data=routes%2Fblog`);
+  // purge snippet list page
+  urlsToPurge.add(`${BASE_URL}/snippets`);
+  urlsToPurge.add(`${BASE_URL}/snippets?_data=routes%2Fsnippets`);
+
+  pathsArr = pathsArr.filter((path: string) => path !== "index.json");
+}
 
 pathsArr.forEach((pathWithExtension: string) => {
   if (!(typeof pathWithExtension === "string")) {
@@ -43,19 +57,6 @@ pathsArr.forEach((pathWithExtension: string) => {
   urlsToPurge.add(`${BASE_URL}/${path}`);
   // JSON request for page
   urlsToPurge.add(`${BASE_URL}/${path}?_data=routes%2F${route}.%24slug`);
-
-  if (path !== route) {
-    // SSR doc request for parent page
-    urlsToPurge.add(`${BASE_URL}/${route}`);
-    // JSON request for parent page
-    urlsToPurge.add(`${BASE_URL}/${route}?_data=routes%2F${route}`);
-  }
-
-  // purge home page if any blog pages were modified
-  if (route === "blog") {
-    urlsToPurge.add(`${BASE_URL}/`);
-    urlsToPurge.add(`${BASE_URL}/?_data=routes%2Findex`);
-  }
 });
 
 const BATCH_SIZE = 30;
