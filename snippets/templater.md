@@ -4,6 +4,7 @@ createdAt: "2022-02-07"
 description: "Snippets I've written for the Templater Obsidian plugin."
 tags:
   - obsidianmd
+  - javascript
 ---
 
 Snippets I've written for the [Templater](https://github.com/SilentVoid13/Templater) Obsidian plugin.
