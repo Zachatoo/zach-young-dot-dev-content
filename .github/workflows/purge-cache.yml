@@ -22,6 +22,7 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v35
         with:
+          json: "true"
           files: |
             blog/**
             snippets/**
@@ -78,4 +79,4 @@ jobs:
 
       - name: Purge Modified Files
         run: |
-          "deno run --allow-net src/purge-cache.ts --paths '${{ needs.changed-files.outputs.all_changed_and_modified_files }} ${{ (needs.rebuild-index.outputs.index_rebuilt == 'true' && 'index.json') || '' }}' --token ${{ secrets.CF_TOKEN }} --zone ${{ secrets.CF_ZONE }}"
+          "deno run --allow-net src/purge-cache.ts --paths '${{ needs.changed-files.outputs.all_changed_and_modified_files }}' ${{ (needs.rebuild-index.outputs.index_rebuilt == 'true' && '--index-rebuilt') || '' }} --token ${{ secrets.CF_TOKEN }} --zone ${{ secrets.CF_ZONE }}"

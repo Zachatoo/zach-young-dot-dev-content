@@ -4,9 +4,10 @@ const BASE_URL = "https://zachyoung.dev";
 
 const flags = parse(Deno.args, {
   string: ["paths", "token", "zone"],
+  boolean: ["index-rebuilt"],
 });
 
-const { paths, token, zone } = flags;
+const { paths, token, zone, "index-rebuilt": indexRebuilt } = flags;
 if (!paths) {
   console.error("--paths is required");
   Deno.exit(1);
@@ -20,18 +21,18 @@ if (!zone) {
   Deno.exit(1);
 }
 
-let pathsArr = paths.split(/\s*/).filter(Boolean);
+const pathsArr = JSON.parse(paths.replaceAll("\\", ""));
 if (
   !Array.isArray(pathsArr) ||
   !pathsArr.every((path) => typeof path === "string")
 ) {
-  console.error("--paths must be a whitespace delimited list of strings");
+  console.error("--paths must be an array of strings");
   Deno.exit(1);
 }
 
 const urlsToPurge: Set<string> = new Set();
 
-if (pathsArr.some((path: string) => path === "index.json")) {
+if (indexRebuilt) {
   // purge home page
   urlsToPurge.add(`${BASE_URL}/`);
   urlsToPurge.add(`${BASE_URL}/?_data=routes%2Findex`);
@@ -41,8 +42,6 @@ if (pathsArr.some((path: string) => path === "index.json")) {
   // purge snippet list page
   urlsToPurge.add(`${BASE_URL}/snippets`);
   urlsToPurge.add(`${BASE_URL}/snippets?_data=routes%2Fsnippets`);
-
-  pathsArr = pathsArr.filter((path: string) => path !== "index.json");
 }
 
 pathsArr.forEach((pathWithExtension: string) => {
