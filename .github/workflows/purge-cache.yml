@@ -27,7 +27,6 @@ jobs:
           files: |
             blog/**
             snippets/**
-            index.json
 
       - name: List Modified Files
         if: ${{ steps.changed-files.outputs.any_modified == 'true' }}
@@ -71,6 +70,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Retrieve the current commit
+
       - name: Setup Deno
         uses: denoland/setup-deno@v1
         with:
