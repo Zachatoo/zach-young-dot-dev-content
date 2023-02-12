@@ -17,8 +17,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Retrieve the current commit
 
       - name: Get Changed Files
         id: changed-files
@@ -72,8 +70,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Retrieve the current commit
 
       - name: Setup Deno
         uses: denoland/setup-deno@v1
