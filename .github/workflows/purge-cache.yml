@@ -78,5 +78,4 @@ jobs:
           deno-version: v1.x
 
       - name: Purge Modified Files
-        run: |
-          "deno run --allow-net src/purge-cache.ts --paths '${{ needs.changed-files.outputs.all_changed_and_modified_files }}' ${{ (needs.rebuild-index.outputs.index_rebuilt == 'true' && '--index-rebuilt') || '' }} --token ${{ secrets.CF_TOKEN }} --zone ${{ secrets.CF_ZONE }}"
+        run: "deno run --allow-net src/purge-cache.ts --paths '${{ needs.changed-files.outputs.all_changed_and_modified_files }}'${{ (needs.rebuild-index.outputs.index_rebuilt == 'true' && ' --index-rebuilt') || '' }} --token ${{ secrets.CF_TOKEN }} --zone ${{ secrets.CF_ZONE }}"
