@@ -78,9 +78,5 @@ jobs:
         with:
           deno-version: v1.x
 
-      - name: Index Was Rebuilt
-        run: |
-          echo ${{ needs.rebuild-index.outputs.changes_detected }}
-
       - name: Purge Modified Files
         run: "deno run --allow-net src/purge-cache.ts --paths '${{ needs.changed-files.outputs.all_changed_and_modified_files }}'${{ (needs.rebuild-index.outputs.index_rebuilt == 'true' && ' --index-rebuilt') || '' }} --token ${{ secrets.CF_TOKEN }} --zone ${{ secrets.CF_ZONE }}"
