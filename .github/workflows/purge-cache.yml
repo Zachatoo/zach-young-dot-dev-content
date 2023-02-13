@@ -58,6 +58,7 @@ jobs:
         run: "deno run --allow-read --allow-write src/rebuild-index.ts"
 
       - uses: stefanzweifel/git-auto-commit-action@v4
+        id: auto-commit-action
         with:
           commit_message: Rebuild index
           file_pattern: index.json
@@ -79,7 +80,7 @@ jobs:
 
       - name: Index Was Rebuilt
         run: |
-          echo ${{ needs.rebuild-index.outputs }}
+          echo ${{ needs.rebuild-index.outputs.changes_detected }}
 
       - name: Purge Modified Files
         run: "deno run --allow-net src/purge-cache.ts --paths '${{ needs.changed-files.outputs.all_changed_and_modified_files }}'${{ (needs.rebuild-index.outputs.index_rebuilt == 'true' && ' --index-rebuilt') || '' }} --token ${{ secrets.CF_TOKEN }} --zone ${{ secrets.CF_ZONE }}"
