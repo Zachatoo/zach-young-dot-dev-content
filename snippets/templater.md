@@ -9,6 +9,24 @@ tags:
 
 Snippets I've written for the [Templater](https://github.com/SilentVoid13/Templater) Obsidian plugin.
 
+## Suggester for files with tag
+
+This script will show a modal with a searchable list of files with a specific tag.
+
+```js
+<%*
+const tag = "#example-tag";
+
+const filteredFiles = app.vault.getMarkdownFiles().filter(file => {
+  const tags = tp.obsidian.getAllTags(app.metadataCache.getFileCache(file));
+  return tags.includes(tag);
+});
+const selectedFile = (await tp.system.suggester((file) => file.basename, filteredFiles)).basename;
+-%>
+
+[[<% selectedFile %>]]
+```
+
 ## Suggester for tags
 
 This script will show a modal with a searchable list of tags you can select from.
@@ -32,14 +50,9 @@ This script will give you a link to the most recently modified file in your vaul
 // Set tag you want to get latest file for here
 const tag = "#example-tag";
 
-// Get metadataCache and list of files
-const cache = app.metadataCache;
-const files = app.vault.getMarkdownFiles();
-
-const latestTFileWithTag = files.reduce((currLatestTFileWithTag, file) => {
+const latestTFileWithTag = app.vault.getMarkdownFiles().reduce((currLatestTFileWithTag, file) => {
   // Get all tags for file we're currently checking
-  const fileCache = cache.getFileCache(file);
-  const tags = tp.obsidian.getAllTags(fileCache);
+  const tags = tp.obsidian.getAllTags(app.metadataCache.getFileCache(file));
 
   // If file has tag and if that file was modified more recently than the currently found most recently modified file, then set most recently modified file to file
   if (tags.includes(tag) && (!currLatestTFileWithTag || currLatestTFileWithTag.stat.mtime < file.stat.mtime)) {
