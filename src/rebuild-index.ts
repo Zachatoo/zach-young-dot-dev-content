@@ -18,6 +18,7 @@ interface IFrontmatterBasic {
 }
 type Frontmatter = IFrontmatterBasic & {
   slug: string;
+  path: string;
 };
 
 const index: Frontmatter[] = [];
@@ -37,10 +38,10 @@ for await (const dirEntry of Deno.readDir("./")) {
           const extractedAttrs = { title, createdAt, description, tags };
 
           if (isFrontmatterValid(extractedAttrs)) {
+            const path = `/${dirEntry.name}/${nestedDirEntry.name}`;
             index.push({
-              slug: `/${dirEntry.name}/${
-                nestedDirEntry.name.replace(/\.md(x)?$/, "")
-              }`,
+              slug: path.replace(/\.md(x)?$/, ""),
+              path,
               ...extractedAttrs,
             });
           } else {

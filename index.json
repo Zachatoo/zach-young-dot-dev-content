@@ -1,6 +1,7 @@
 [
   {
     "slug": "/snippets/obsidian-readable-line-length",
+    "path": "/snippets/obsidian-readable-line-length.md",
     "title": "Obsidian readable line length",
     "createdAt": "2023-02-11",
     "description": "Customizing the readable line length setting.",
@@ -11,6 +12,7 @@
   },
   {
     "slug": "/snippets/theming-obsidian-canvas",
+    "path": "/snippets/theming-obsidian-canvas.md",
     "title": "Theming Obsidian canvas",
     "createdAt": "2022-12-18",
     "description": "Changing the default colors for Obsidian's canvas plugin.",
@@ -21,6 +23,7 @@
   },
   {
     "slug": "/blog/folder-templates-with-quick-switcher",
+    "path": "/blog/folder-templates-with-quick-switcher.mdx",
     "title": "Folder templates with quick switcher",
     "createdAt": "2022-12-13",
     "description": "Setting up folder templates to work when creating files from the file explorer and from the quick switcher.",
@@ -30,6 +33,7 @@
   },
   {
     "slug": "/blog/bookmarklets",
+    "path": "/blog/bookmarklets.mdx",
     "title": "Bookmarklets",
     "createdAt": "2022-11-06",
     "description": "What they are, why they're useful, and how to create them.",
@@ -39,6 +43,7 @@
   },
   {
     "slug": "/snippets/dataview",
+    "path": "/snippets/dataview.md",
     "title": "Dataview snippets",
     "createdAt": "2022-10-21",
     "description": "Snippets I've written for the Dataview Obsidian plugin.",
@@ -49,6 +54,7 @@
   },
   {
     "slug": "/snippets/download-shootproof-photos-bookmarklet",
+    "path": "/snippets/download-shootproof-photos-bookmarklet.md",
     "title": "Download Shootproof photos bookmarklet",
     "createdAt": "2022-10-21",
     "description": "This bookmarklet is to download all of the photos from a Shootproof gallery. It'll go through each photo one by one and download the high quality image.",
@@ -58,6 +64,7 @@
   },
   {
     "slug": "/snippets/get-date-for-timezone-sql",
+    "path": "/snippets/get-date-for-timezone-sql.md",
     "title": "Get date for timezone in SQL",
     "createdAt": "2022-10-12",
     "description": "Get current date for specific timezone when server is in UTC timezone.",
@@ -67,6 +74,7 @@
   },
   {
     "slug": "/blog/creating-a-use-countdown-react-hook",
+    "path": "/blog/creating-a-use-countdown-react-hook.mdx",
     "title": "Creating a useCountdown React hook",
     "createdAt": "2022-08-29",
     "description": "I show you the process for creating a React hook for getting the days, hours, minutes, and seconds until an event, with tests to boot!",
@@ -77,6 +85,7 @@
   },
   {
     "slug": "/snippets/click-all-unchecked-checkboxes",
+    "path": "/snippets/click-all-unchecked-checkboxes.md",
     "title": "Click all unchecked checkboxes",
     "createdAt": "2022-04-25",
     "description": "Click on all unchecked checkboxes in the document.",
@@ -86,6 +95,7 @@
   },
   {
     "slug": "/blog/how-to-use-git-bisect",
+    "path": "/blog/how-to-use-git-bisect.mdx",
     "title": "How to use git bisect",
     "createdAt": "2022-04-13",
     "description": "How to find which commit introduced a bug when you have nowhere else to turn.",
@@ -95,6 +105,7 @@
   },
   {
     "slug": "/snippets/log-entity-framework-generated-sql",
+    "path": "/snippets/log-entity-framework-generated-sql.md",
     "title": "Log Entity Framework generated SQL",
     "createdAt": "2022-03-23",
     "description": "Log generated SQL from Entity Framework.",
@@ -105,6 +116,7 @@
   },
   {
     "slug": "/snippets/templater",
+    "path": "/snippets/templater.md",
     "title": "Templater snippets",
     "createdAt": "2022-02-07",
     "description": "Snippets I've written for the Templater Obsidian plugin.",
@@ -115,6 +127,7 @@
   },
   {
     "slug": "/blog/children-as-a-react-prop-in-typescript",
+    "path": "/blog/children-as-a-react-prop-in-typescript.mdx",
     "title": "Children as a React prop in TypeScript",
     "createdAt": "2021-12-31",
     "description": "How to type the 'children' prop for React Typescript components.",
@@ -125,6 +138,7 @@
   },
   {
     "slug": "/blog/handling-react-state-outside-react",
+    "path": "/blog/handling-react-state-outside-react.mdx",
     "title": "Handling React state outside of React",
     "createdAt": "2021-12-13",
     "description": "How to call the setState function safely when using third-party libraries that are not compatible with React.",
