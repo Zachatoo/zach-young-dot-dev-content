@@ -1,5 +1,15 @@
 [
   {
+    "slug": "/blog/obsidian-quick-capture",
+    "path": "/blog/obsidian-quick-capture.md",
+    "title": "Obsidian quick capture for Android",
+    "createdAt": "2023-02-22",
+    "description": "How to add a widget to your homescreen to quickly send data to your vault, without opening Obsidian.",
+    "tags": [
+      "obsidianmd"
+    ]
+  },
+  {
     "slug": "/snippets/obsidian-readable-line-length",
     "path": "/snippets/obsidian-readable-line-length.md",
     "title": "Obsidian readable line length",
