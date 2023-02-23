@@ -3,11 +3,9 @@ import {
   test,
 } from "https://deno.land/std@0.176.0/encoding/front_matter/any.ts";
 
-const IGNORE_DIRECTORIES = [
-  ".git",
-  ".github",
-  ".vscode",
-  "src",
+const INCLUDE_DIRECTORIES = [
+  "blog",
+  "snippets",
 ];
 
 interface IFrontmatterBasic {
@@ -25,7 +23,8 @@ const index: Frontmatter[] = [];
 
 for await (const dirEntry of Deno.readDir("./")) {
   if (
-    dirEntry.isDirectory && !IGNORE_DIRECTORIES.some((x) => x === dirEntry.name)
+    dirEntry.isDirectory &&
+    INCLUDE_DIRECTORIES.some((x) => x === dirEntry.name)
   ) {
     for await (const nestedDirEntry of Deno.readDir(`./${dirEntry.name}`)) {
       if (nestedDirEntry.isFile) {
