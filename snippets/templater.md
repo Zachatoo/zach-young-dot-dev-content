@@ -115,11 +115,13 @@ Instead of reading the contents of the file and parsing it manually, it's recomm
 
 You must mutate the `frontmatter` object directly, do not try to copy the object first and then do mutations.
 
-```js title="increment-template.md"
+```js
 <%*
 const file = tp.file.find_tfile(tp.file.title);
 await app.fileManager.processFrontMatter(file, (frontmatter) => {
+  frontmatter["status"] = "In progress";
   frontmatter["review count"] += 1;
+  delete frontmatter["ignored"];
 })
 -%>
 ```
