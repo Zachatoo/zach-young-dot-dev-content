@@ -109,6 +109,56 @@ Though this does work, I personally prefer dynamic links using dataview, which I
 [[<% tp.date.now("YYYY-MM-DD", 1, tp.file.title, "YYYY-MM-DD") %>|tomorrow]]
 ```
 
+## Retrieve frontmatter from another note
+
+Instead of reading the contents of the file and parsing it manually, it's recommended to use `app.metadataCache.getFileCache` from the Obsidian public api.
+
+In this example, we can check a note for a field in frontmatter called `count` in another note, and if it exists, increment it and set it in the current note's frontmatter. Otherwise, fallback to setting it to "1".
+
+```js title="get-count-template.md"
+<%*
+const file = tp.file.find_tfile("Note.md");
+const fileCache = await app.metadataCache.getFileCache(file);
+
+let count = 1;
+if (fileCache?.frontmatter?.count) {
+  count = fileCache.frontmatter.count + 1;
+}
+-%>
+---
+count: <% count %>
+---
+```
+
+A common use case for this is to get frontmatter from another note in the same folder as your current folder and increment it. Here's an example of how to do that.
+
+```js title="get-latest-count-in-folder-template.md"
+<%*
+// Setup fallback if no other files in folder
+let count = 1;
+
+// Get all files in current folder that aren't this file
+const filesInFolder = app.vault.getMarkdownFiles().filter(
+  x => x.parent?.path === tp.file.folder() && x.path !== tp.file.path(true)
+);
+
+if (filesInFolder.length > 0) {
+  // Sort files by path descending and get latest file's cache
+  filesInFolder.sort((a, b) => a.path < b.path ? 1 : -1);
+  const latestTFile = filesInFolder[0];
+  const fileCache = await app.metadataCache.getFileCache(latestTFile);
+
+  // If latest file has count, increment it by 1 and use in new note's frontmatter
+  if (fileCache?.frontmatter?.count) {
+    count = fileCache.frontmatter.count + 1;
+  }
+}
+-%>
+---
+count: <% count %>
+---
+```
+
 ## Update frontmatter
 
 Instead of reading the contents of the file and parsing it manually, it's recommended to use `app.fileManager.processFrontMatter` from the Obsidian public api.
