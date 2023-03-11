@@ -9,6 +9,44 @@ tags:
 
 Snippets I've written for the [Templater](https://github.com/SilentVoid13/Templater) Obsidian plugin.
 
+## Create links to all weekly notes in current month
+
+This script will create a list of links to all weekly notes that fall within the current month, using the current note as a reference. Assumes that the monthly note format of `YYYY-MM`.
+
+```js
+<%*
+// Get year and month from note name, assumes format of "YYYY-MM"
+const [year, month] = tp.file.title.split("-");
+
+// Momentjs works with months starting at 0 index (January is month 0, February is month 1, etc)
+// Subtract one to convert to starting at 0 index
+const monthZeroIndex = month - 1;
+
+// Get number of days in month
+const monthDate = moment([year, monthZeroIndex]);
+const daysInMonth = monthDate.daysInMonth();
+
+// For each day in month
+const weeks = [];
+for (let dayOfMonth = 1; dayOfMonth <= daysInMonth; ++dayOfMonth) {
+  // Get week for day of month
+  const week = moment([year, monthZeroIndex, dayOfMonth]).week();
+
+  // If week is a new week, add to list of weeks for month
+  if (!weeks.some(x => x === week)) {
+    weeks.push(week);
+  }
+}
+
+// Format weeks to be links, formatted at "[[YYYY-[W]WW]]"
+const weeksFormatted = weeks.map(week => (
+  `[[${year}-W${String(week).padStart(2, "0")}]]`
+)).join("\n");
+-%>
+
+<% weeksFormatted %>
+```
+
 ## Suggester for files with tag
 
 This script will show a modal with a searchable list of files with a specific tag.
