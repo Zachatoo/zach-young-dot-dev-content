@@ -43,20 +43,7 @@ cssclass: readable-line-width
 Changes the width of the readable line length setting to a specified amount. Check the [Mozilla Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/max-width) for valid max-width values.
 
 ```css title="custom-readable-line-length.css"
-:root {
-  --custom-readable-line-width: 1000px; /* set width here */
-}
-
-.markdown-source-view.is-readable-line-width .CodeMirror,
-.markdown-source-view.mod-cm6.is-readable-line-width .cm-sizer,
-.markdown-preview-view.is-readable-line-width .markdown-preview-sizer {
-  max-width: var(--custom-readable-line-width);
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.markdown-source-view.mod-cm6.is-readable-line-width .cm-content,
-.markdown-source-view.mod-cm6.is-readable-line-width .cm-line {
-  max-width: var(--custom-readable-line-width);
+body {
+  --file-line-width: 1000px;
 }
 ```
