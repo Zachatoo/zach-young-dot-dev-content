@@ -13,7 +13,7 @@ Snippets I've written for the [Templater](https://github.com/SilentVoid13/Templa
 
 This script will open multiple tabs of notes. You can do repeat these two lines of code as much as you'd like.
 
-```js title="open-two-files-in-new-tabs.md
+```js title="open-two-files-in-new-tabs.md"
 <%*
 const note1 = tp.file.find_tfile("filename1");
 app.workspace.getLeaf(true).openFile(note1);
@@ -25,7 +25,7 @@ app.workspace.getLeaf(true).openFile(note2);
 
 This script will open multiple tabs and create notes with templates applied to them. For the last tab we don't need to explicitly open the tab.
 
-```js title="create-and-open-three-files.md"
+```js title="create-and-open-three-files-in-new-tabs.md"
 <%*
 const template1 = tp.file.find_tfile("template-1");
 await tp.file.create_new(template1, "filename1", true);
