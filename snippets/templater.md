@@ -9,6 +9,32 @@ tags:
 
 Snippets I've written for the [Templater](https://github.com/SilentVoid13/Templater) Obsidian plugin.
 
+## Create links to all files created today
+
+This script will create a list of all files created today, based on a field in your notes frontmatter. This could be modified to use `cday`, but I've found that to not be accurate, especially when syncing files between devices, so I prefer to store the created/modified dates of notes in frontmatter of the note.
+
+You can swap out the `createdOn` in `fileCache?.frontmatter?.createdOn` with whatever field you want put in your frontmatter to track the created date. You can also change `YYYY-MM-DD` to match the date format you put for the value of your created date field.
+
+```js title="get-files-created-today.md"
+<%*
+const today = tp.date.now("YYYY-MM-DD");
+// Loop through all files
+const mappedFilePromises = app.vault.getMarkdownFiles().map(async file => {
+  const fileCache = await app.metadataCache.getFileCache(file);
+  // If the file has a createdOn field and it's value is today, mark it to be included
+  file.shouldInclude = fileCache?.frontmatter?.createdOn === today;
+  return file;
+});
+// Wait for all files to be processed (have to wait because getting frontmatter is asynchronous)
+const mappedFiles = await Promise.all(mappedFilePromises);
+// Filter out files that shouldn't be included
+const filteredFiles = mappedFiles.filter(file => file.shouldInclude);
+// Convert list of files into list of links
+const links = filteredFiles.map(file => `[[${file.basename}]]`).join("\n");
+tR += links;
+_%>
+```
+
 ## Opening files in new tabs
 
 This script will open multiple tabs of notes. You can do repeat these two lines of code as much as you'd like.
