@@ -9,6 +9,19 @@ tags:
 
 Snippets I've written for the [Templater](https://github.com/SilentVoid13/Templater) Obsidian plugin.
 
+## Reapply template instead of append
+
+Place this script at the top of your template to clear out the file first before applying the rest of your template.
+
+This is useful if you want to "reapply" a template to a file rather than append to it.
+
+```js
+<%*
+await app.vault.modify(tp.file.find_tfile(tp.file.title), "");
+_%>
+// Rest of template below
+```
+
 ## Create links to all files created today
 
 This script will create a list of all files created today, based on a field in your notes frontmatter. This could be modified to use `cday`, but I've found that to not be accurate, especially when syncing files between devices, so I prefer to store the created/modified dates of notes in frontmatter of the note.
