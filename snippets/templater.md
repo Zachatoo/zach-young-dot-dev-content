@@ -83,7 +83,7 @@ await tp.file.create_new(template3, "filename3", true);
 
 ## Create links to all weekly notes in current month
 
-This script will create a list of links to all weekly notes that fall within the current month, using the current note as a reference. Assumes that the monthly note format of `YYYY-MM`.
+This script will create a list of links to all weekly notes that fall within the current month, using the current note as a reference. Assumes that the monthly note format of `YYYY-MM` and a weekly note format of `YYYY-[W]ww`.
 
 ```js
 <%*
@@ -117,6 +117,20 @@ const weeksFormatted = weeks.map(week => (
 -%>
 
 <% weeksFormatted %>
+```
+
+## Create links to all daily notes in week
+
+This script will create a list of links to all daily notes that fall within the current week, using the current note as a reference. Assumes that the weekly note format of `YYYY-[W]ww` and a daily note format of `YYYY-MM-DD`.
+
+```js
+[[<% tp.date.weekday("YYYY-MM-DD", 0, tp.file.title, "YYYY-[W]ww") %>]]
+[[<% tp.date.weekday("YYYY-MM-DD", 1, tp.file.title, "YYYY-[W]ww") %>]]
+[[<% tp.date.weekday("YYYY-MM-DD", 2, tp.file.title, "YYYY-[W]ww") %>]]
+[[<% tp.date.weekday("YYYY-MM-DD", 3, tp.file.title, "YYYY-[W]ww") %>]]
+[[<% tp.date.weekday("YYYY-MM-DD", 4, tp.file.title, "YYYY-[W]ww") %>]]
+[[<% tp.date.weekday("YYYY-MM-DD", 5, tp.file.title, "YYYY-[W]ww") %>]]
+[[<% tp.date.weekday("YYYY-MM-DD", 6, tp.file.title, "YYYY-[W]ww") %>]]
 ```
 
 ## Suggester for files with tag
