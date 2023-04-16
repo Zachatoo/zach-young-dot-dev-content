@@ -9,6 +9,56 @@ tags:
 
 Snippets I've written for the [Templater](https://github.com/SilentVoid13/Templater) Obsidian plugin.
 
+## Create file if it doesn't exist
+
+This script will create a file if the file doesn't already exist.
+
+```js title="create-if-not-exists"
+<%*
+const fileName = "This is the name of a file";
+const existing = tp.file.find_tfile(fileName);
+if (!existing) {
+  await tp.file.create_new("Contents", fileName);
+}
+_%>
+```
+
+Here's how you can create an internal link in a template that will create a new file only if it doesn't already exist.
+
+```js title="create-if-not-exists-with-link"
+<%*
+const fileName = "This is the name of a file";
+const existing = tp.file.find_tfile(fileName);
+let createdFileDisplay;
+if (existing) {
+  createdFileDisplay = existing.basename;
+} else {
+  createdFileDisplay = (await tp.file.create_new("Contents", fileName)).basename;
+}
+_%>
+
+// Somewhere later in the file
+[[<% createdFileDisplay %>]]
+```
+
+Here's a script that will create an internal link in a template that will create a new file using a template if it doesn't already exist.
+
+```js title="create-if-not-exists-with-link-and-template"
+<%*
+const fileName = "This is the name of a file";
+const existing = tp.file.find_tfile(fileName);
+let createdFileDisplay;
+if (existing) {
+  createdFileDisplay = existing.basename;
+} else {
+  createdFileDisplay = (await tp.file.create_new(tp.file.find_tfile("template-name"), fileName)).basename;
+}
+_%>
+
+// Somewhere later in the file
+[[<% createdFileDisplay %>]]
+```
+
 ## Reapply template instead of append
 
 Place this script at the top of your template to clear out the file first before applying the rest of your template.
