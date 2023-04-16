@@ -13,7 +13,7 @@ Snippets I've written for the [Templater](https://github.com/SilentVoid13/Templa
 
 This script will create a file if the file doesn't already exist.
 
-```js title="create-if-not-exists"
+```js title="create-if-not-exists.md"
 <%*
 const fileName = "This is the name of a file";
 const existing = tp.file.find_tfile(fileName);
@@ -25,7 +25,7 @@ _%>
 
 Here's how you can create an internal link in a template that will create a new file only if it doesn't already exist.
 
-```js title="create-if-not-exists-with-link"
+```js title="create-if-not-exists-with-link.md"
 <%*
 const fileName = "This is the name of a file";
 const existing = tp.file.find_tfile(fileName);
@@ -43,7 +43,7 @@ _%>
 
 Here's a script that will create an internal link in a template that will create a new file using a template if it doesn't already exist.
 
-```js title="create-if-not-exists-with-link-and-template"
+```js title="create-if-not-exists-with-link-and-template.md"
 <%*
 const fileName = "This is the name of a file";
 const existing = tp.file.find_tfile(fileName);
