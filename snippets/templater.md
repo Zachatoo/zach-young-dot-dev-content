@@ -71,7 +71,7 @@ To make this easier to use, we could abstract this functionality away into a [us
 
 ```js title="multiSuggester.js"
 /**
- * Multi-select suggester.
+ * Spawns a multi-select suggester prompt and returns the user's chosen items.
  * @param {object} tp Templater tp object.
  * @param {string[] | ((item: T) => string)} textItems Array of strings representing the text that will be displayed for each item in the suggester prompt. This can also be a function that maps an item to its text representation.
  * @param {T[]} items Array containing the values of each item in the correct order.
