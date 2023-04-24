@@ -1,10 +1,13 @@
 ---
 title: "Folder templates with quick switcher"
 createdAt: "2022-12-13"
+updatedAt: "2023-04-23"
 description: "Setting up folder templates to work when creating files from the file explorer and from the quick switcher."
 tags:
   - obsidianmd
 ---
+
+Update: This post has been updated to be able to manage your folder templates within Templater settings instead of within the template. You can see the original implementation [here](https://github.com/Zachatoo/zach-young-dot-dev-content/blob/75bce54e04a4146ff982670d23a7efdd64cc39a3/blog/folder-templates-with-quick-switcher.mdx).
 
 This setup simulates the [folder templates](https://silentvoid13.github.io/Templater/settings.html#folder-templates) feature but in a way that allows me to type the name of the note without the folder name in the quick switcher, and then be prompted with the folder using `tp.system.suggester`.
 
@@ -19,54 +22,41 @@ In templater settings, setup the following settings.
 - Template folder location: folder where you will put your templates (in my case, "00 Meta/01 Templates").
 - Trigger Templater on new file creation: on.
 - Enable folder templates: on.
+- Add new folder template(s).
+  - Add your folder templates here. The left input is where you'll set the folder where you want the template to be applied. The right input is for the template that will be applied to new notes in that folder.
+  - Do not setup a "root" folder template (a template that is applied to the root folder `/`). That folder template will be reserved for the [picker template](#picker-template).
 
 ## Templates
 
 Following is a list of the templates that are needed for this setup to work. Place these templates in your template folder location ("00 Meta/01 Templates/" for example).
 
-There are other templates mentioned but not shown here. This list should give you a good idea of how to implement any other templates you want.
-
 ### Picker template
 
-The picker template when run will check if the note you've created was created in the default location. If it was, then the template will ask you what type of note this new note is, and then place the note in that folder and apply it's relevant template from the `types` variable.
+The picker template when run will check if the note you've created was created in the default location. If it was, then the template will ask you what type of note this new note is, and then place the note in that folder and apply it's relevant template that you setup in Templater's folder template settings [earlier](#templater-settings).
 
 ```js title="picker-template.md"
 <%*
 // Fallback template if no type is selected
-const DEFAULT_TEMPLATE = 'default-template';
-let template = DEFAULT_TEMPLATE;
-
-// List out names of folders and associated templates with those folders
-// For example, the "20 People" folder uses the "person-template" template
-// This is similar to how folder templates work
-const types = [
-  { name: '20 People', template: 'person-template' },
-  { name: '30 Terms', template: 'terms-template' },
-  { name: '40 Sources', template: 'sources-template' },
-  { name: '50 Projects', template: DEFAULT_TEMPLATE },
-  { name: 'Seed Box', template: DEFAULT_TEMPLATE },
-];
-
-// Get the folder of the note
-const folder = tp.file.folder();
-
-// If note is in default note location (likely from quick switcher) then prompt for type of note
-if (folder === 'Seed Box') {
-  const type = await tp.system.suggester(item => item.name, types);
-  if (type) {
-    template = type.template;
-    await tp.file.move(`${type.name}/${tp.file.title}`);
-  }
-} else {
-  // If note is not in default note location, then check if note location has defined type with template and use that
-  const type = types.find(item => item.name === folder);
-  if (type) {
-    template = type.template;
-    await tp.file.move(`${type.name}/${tp.file.title}`);
+let template = 'default-template';
+// Get list of folder templates (setup in Templater settings)
+const folderTemplates = app.plugins.plugins['templater-obsidian'].settings.folder_templates;
+// Get default path for new files
+const defaultNewFilePath = app.vault.getConfig("newFileFolderPath");
+// If note is in default note location (likely from quick switcher)
+if (tp.file.folder() === defaultNewFilePath) {
+  // Prompt for folder template
+  const selectedTemplate = await tp.system.suggester(folderTemplate => folderTemplate.folder, folderTemplates);
+  // If folder template is selected and is not the picker template,
+  const pickerTemplateFolder = '/';
+  if (selectedTemplate && selectedTemplate.folder !== pickerTemplateFolder) {
+    // Move file to folder template and set template to apply
+    template = selectedTemplate.template;
+    await tp.file.move(`${selectedTemplate.folder}/${tp.file.title}`);
   }
 }
+// Apply template
+tR += await tp.file.include(`[[${template}]]`)
 _%>
-<% await tp.file.include(`[[${template}]]`) %>
 ```
 
 ### Default template
@@ -97,6 +87,6 @@ _%>
 
 ## Running the picker template on new file creation
 
-To get the [picker template](#picker-template) to run on new file creation, we need to go back into our Templater settings and add the picker template to the list of folder templates. The "folder" should be the root folder ("/") and the template should be the picker template ("00 Meta/01 Templates/picker-template.md").
+To get the [picker template](#picker-template) to run on new file creation, we need to go back into our Templater settings and add the picker template to the list of folder templates. The "folder" should be the root folder (`/`) and the template should be the picker template ("00 Meta/01 Templates/picker-template.md").
 
 And that's it! Now you can either create new notes using the quick switcher and be prompted for a note type, or when creating notes from the file explorer the template will be applied without needing to be prompted if creating the note in a folder with a defined type in the picker template.
