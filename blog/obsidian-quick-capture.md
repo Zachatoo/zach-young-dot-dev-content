@@ -1,6 +1,7 @@
 ---
 title: "Obsidian quick capture for Android"
 createdAt: "2023-02-22"
+updated at: "2023-05-01"
 description: "How to add a widget to your homescreen to quickly send data to your vault, without opening Obsidian."
 tags:
   - obsidianmd
@@ -46,4 +47,4 @@ Now whenever you select some text, the popup that shows up asking if you want to
 
 ## Obsidian inbox plugin
 
-I created a plugin for Obsidian called "Inbox" that will notify you when there's new information to process in your note that you're sending quick captures to. You can find installation instructions [here](https://github.com/Zachatoo/obsidian-inbox#readme). The plugin includes a walkthrough that will help you setup the settings properly.
+I created a plugin for Obsidian called "Inbox" that will notify you when there's new information to process in your note that you're sending quick captures to. You can install it [here](obsidian://show-plugin?id=obsidian-git). The plugin includes a walkthrough that will help you setup the settings properly.
