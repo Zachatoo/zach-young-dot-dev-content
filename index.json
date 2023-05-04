@@ -1,5 +1,15 @@
 [
   {
+    "slug": "/snippets/allow-list-for-tracking-changes-in-git",
+    "path": "/snippets/allow-list-for-tracking-changes-in-git.md",
+    "title": "Allow list for tracking changes in git",
+    "createdAt": "2023-05-03",
+    "description": "Setting up an allow list instead of a block list for tracking file changes in git.",
+    "tags": [
+      "git"
+    ]
+  },
+  {
     "slug": "/blog/obsidian-quick-capture",
     "path": "/blog/obsidian-quick-capture.md",
     "title": "Obsidian quick capture for Android",
