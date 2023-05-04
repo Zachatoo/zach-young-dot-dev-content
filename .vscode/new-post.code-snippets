@@ -4,6 +4,7 @@
       "---",
       "title: \"$1\"",
       "createdAt: \"$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\"",
+      "updatedAt: \"$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE\"",
       "description: \"$2\"",
       "tags:",
       "  - $3",
