@@ -22,7 +22,7 @@ In Templater settings, setup the following settings.
 
 Here's what my folder template settings look like.
 
-![](../images/how-to-fix-links-in-daily-notes-not-using-daily-notes-template-folder-templates.png)
+![](https://raw.githubusercontent.com/Zachatoo/zach-young-dot-dev-content/main/images/how-to-fix-links-in-daily-notes-not-using-daily-notes-template-folder-templates.png)
 
 ## Other potential settings to change
 
