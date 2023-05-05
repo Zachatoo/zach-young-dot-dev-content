@@ -1,5 +1,15 @@
 [
   {
+    "slug": "/blog/how-to-fix-links-in-daily-notes-not-using-daily-notes-template",
+    "path": "/blog/how-to-fix-links-in-daily-notes-not-using-daily-notes-template.md",
+    "title": "How to fix links in daily notes not using daily notes template",
+    "createdAt": "2023-05-04",
+    "description": "When clicking on a date in the Calendar plugin applies your daily note template, but clicking on a link to tomorrow's daily note doesn't apply your daily note template.",
+    "tags": [
+      "obsidianmd"
+    ]
+  },
+  {
     "slug": "/snippets/allow-list-for-tracking-changes-in-git",
     "path": "/snippets/allow-list-for-tracking-changes-in-git.md",
     "title": "Allow list for tracking changes in git",
