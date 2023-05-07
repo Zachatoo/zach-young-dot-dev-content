@@ -2,6 +2,7 @@ import {
   extract,
   test,
 } from "https://deno.land/std@0.176.0/encoding/front_matter/any.ts";
+import GitHubSlugger from "npm:github-slugger@^2.0";
 
 const INCLUDE_DIRECTORIES = [
   "blog",
@@ -11,8 +12,13 @@ const INCLUDE_DIRECTORIES = [
 interface IFrontmatterBasic {
   title: string;
   createdAt: string;
+  updatedAt: string;
   description: string;
   tags: string[];
+  headings: {
+    display: string;
+    anchor: string;
+  }[];
 }
 type Frontmatter = IFrontmatterBasic & {
   slug: string;
@@ -32,9 +38,15 @@ for await (const dirEntry of Deno.readDir("./")) {
         const fileContents = await Deno.readTextFile(fileName);
 
         if (test(fileContents)) {
-          const { title, createdAt, description, tags } =
+          const { title, createdAt, updatedAt, description, tags } =
             extract(fileContents).attrs;
-          const extractedAttrs = { title, createdAt, description, tags };
+          const extractedAttrs = {
+            title,
+            createdAt,
+            updatedAt,
+            description,
+            tags,
+          };
 
           if (isFrontmatterValid(extractedAttrs)) {
             const path = `/${dirEntry.name}/${nestedDirEntry.name}`;
@@ -42,6 +54,7 @@ for await (const dirEntry of Deno.readDir("./")) {
               slug: path.replace(/\.md(x)?$/, ""),
               path,
               ...extractedAttrs,
+              headings: parseHeadings(fileContents),
             });
           } else {
             console.info(
@@ -77,6 +90,28 @@ function isFrontmatterValid(
 
 function isArrayOfStrings(arr: unknown): arr is string[] {
   return Array.isArray(arr) && arr.every((x) => typeof x === "string");
+}
+
+function parseHeadings(contents: string) {
+  const slugger = new GitHubSlugger();
+  // Remove codeblocks to avoid comment syntax in some codeblocks
+  const contentsWithoutCodeblocks = contents.replaceAll(/```(.|\n)+?```/gm, "");
+  const headingsWithoutMarkdown = contentsWithoutCodeblocks
+    .split("\n")
+    .filter((line) => line.startsWith("#"))
+    .map((heading) => heading.replaceAll(/((#+) |_|\*)/g, ""));
+  const headings = headingsWithoutMarkdown.map((heading) => {
+    const dashCaseHeading = heading
+      .split(" ")
+      .map((word) => `${word[0].toLowerCase()}${word.substring(1)}`)
+      .join(" ");
+    const anchor = slugger.slug(dashCaseHeading);
+    return {
+      display: heading,
+      anchor,
+    };
+  });
+  return headings;
 }
 
 async function writeJson(path: string, content: unknown) {

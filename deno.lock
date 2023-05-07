@@ -51,5 +51,16 @@
     "https://deno.land/std@0.176.0/encoding/yaml.ts": "02571d1bbbcfd7c5647789cee872ecf9c1c470e1b1a40948ed219fb661e19d87",
     "https://deno.land/std@0.176.0/io/buffer.ts": "e2b7564f684dad625cab08f5106f33572d325705d19a36822b3272fbdfb8f726",
     "https://deno.land/std@0.176.0/types.d.ts": "220ed56662a0bd393ba5d124aa6ae2ad36a00d2fcbc0e8666a65f4606aaa9784"
+  },
+  "npm": {
+    "specifiers": {
+      "github-slugger@^2.0": "github-slugger@2.0.0"
+    },
+    "packages": {
+      "github-slugger@2.0.0": {
+        "integrity": "sha512-IaOQ9puYtjrkq7Y0Ygl9KDZnrf/aiUJYUpVf89y8kyaxbRG7Y1SrX/jaumrv81vc61+kiMempujsM3Yw7w5qcw==",
+        "dependencies": {}
+      }
+    }
   }
 }

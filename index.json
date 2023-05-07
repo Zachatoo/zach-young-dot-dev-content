@@ -4,20 +4,37 @@
     "path": "/snippets/find-and-replace-html-attributes-with-react-props.md",
     "title": "Find and replace HTML attributes with React props",
     "createdAt": "2023-05-07",
+    "updatedAt": "2023-05-07",
     "description": "Regex for finding and replacing all instances of HTML attributes with dashes to camelCase React props in VS Code.",
     "tags": [
       "regex",
       "react"
-    ]
+    ],
+    "headings": []
   },
   {
     "slug": "/blog/how-to-fix-links-in-daily-notes-not-using-daily-notes-template",
     "path": "/blog/how-to-fix-links-in-daily-notes-not-using-daily-notes-template.md",
     "title": "How to fix links in daily notes not using daily notes template",
     "createdAt": "2023-05-04",
+    "updatedAt": "2023-05-04",
     "description": "When clicking on a date in the Calendar plugin applies your daily note template, but clicking on a link to tomorrow's daily note doesn't apply your daily note template.",
     "tags": [
       "obsidianmd"
+    ],
+    "headings": [
+      {
+        "display": "Turn on folder templates",
+        "anchor": "turn-on-folder-templates"
+      },
+      {
+        "display": "Other potential settings to change",
+        "anchor": "other-potential-settings-to-change"
+      },
+      {
+        "display": "Conclusion",
+        "anchor": "conclusion"
+      }
     ]
   },
   {
@@ -25,10 +42,12 @@
     "path": "/snippets/allow-list-for-tracking-changes-in-git.md",
     "title": "Allow list for tracking changes in git",
     "createdAt": "2023-05-03",
+    "updatedAt": "2023-05-03",
     "description": "Setting up an allow list instead of a block list for tracking file changes in git.",
     "tags": [
       "git"
-    ]
+    ],
+    "headings": []
   },
   {
     "slug": "/blog/obsidian-quick-capture",
@@ -38,6 +57,24 @@
     "description": "How to add a widget to your homescreen to quickly send data to your vault, without opening Obsidian.",
     "tags": [
       "obsidianmd"
+    ],
+    "headings": [
+      {
+        "display": "Installing Automate and the flow",
+        "anchor": "installing-automate-and-the-flow"
+      },
+      {
+        "display": "Automate widget",
+        "anchor": "automate-widget"
+      },
+      {
+        "display": "Automate selection capture",
+        "anchor": "automate-selection-capture"
+      },
+      {
+        "display": "Obsidian inbox plugin",
+        "anchor": "obsidian-inbox-plugin"
+      }
     ]
   },
   {
@@ -49,6 +86,16 @@
     "tags": [
       "obsidianmd",
       "css"
+    ],
+    "headings": [
+      {
+        "display": "Readable line length per file",
+        "anchor": "readable-line-length-per-file"
+      },
+      {
+        "display": "Custom width",
+        "anchor": "custom-width"
+      }
     ]
   },
   {
@@ -60,6 +107,12 @@
     "tags": [
       "obsidianmd",
       "css"
+    ],
+    "headings": [
+      {
+        "display": "Card colors",
+        "anchor": "card-colors"
+      }
     ]
   },
   {
@@ -67,9 +120,32 @@
     "path": "/blog/folder-templates-with-quick-switcher.mdx",
     "title": "Folder templates with quick switcher",
     "createdAt": "2022-12-13",
+    "updatedAt": "2023-04-23",
     "description": "Setting up folder templates to work when creating files from the file explorer and from the quick switcher.",
     "tags": [
       "obsidianmd"
+    ],
+    "headings": [
+      {
+        "display": "Templater settings",
+        "anchor": "templater-settings"
+      },
+      {
+        "display": "Templates",
+        "anchor": "templates"
+      },
+      {
+        "display": "Picker template",
+        "anchor": "picker-template"
+      },
+      {
+        "display": "Default template",
+        "anchor": "default-template"
+      },
+      {
+        "display": "Running the picker template on new file creation",
+        "anchor": "running-the-picker-template-on-new-file-creation"
+      }
     ]
   },
   {
@@ -80,6 +156,20 @@
     "description": "What they are, why they're useful, and how to create them.",
     "tags": [
       "javascript"
+    ],
+    "headings": [
+      {
+        "display": "What is a bookmarklet?",
+        "anchor": "what-is-a-bookmarklet"
+      },
+      {
+        "display": "Why are bookmarklets useful?",
+        "anchor": "why-are-bookmarklets-useful"
+      },
+      {
+        "display": "How to create a bookmarklet",
+        "anchor": "how-to-create-a-bookmarklet"
+      }
     ]
   },
   {
@@ -91,6 +181,24 @@
     "tags": [
       "obsidianmd",
       "javascript"
+    ],
+    "headings": [
+      {
+        "display": "Get days since note was created.",
+        "anchor": "get-days-since-note-was-created"
+      },
+      {
+        "display": "Get notes that have any matching interests.",
+        "anchor": "get-notes-that-have-any-matching-interests"
+      },
+      {
+        "display": "Get notes that have any matching interests and only return matching interests.",
+        "anchor": "get-notes-that-have-any-matching-interests-and-only-return-matching-interests"
+      },
+      {
+        "display": "Get links to previous and next daily notes",
+        "anchor": "get-links-to-previous-and-next-daily-notes"
+      }
     ]
   },
   {
@@ -101,6 +209,16 @@
     "description": "This bookmarklet is to download all of the photos from a Shootproof gallery. It'll go through each photo one by one and download the high quality image.",
     "tags": [
       "javascript"
+    ],
+    "headings": [
+      {
+        "display": "Instructions",
+        "anchor": "instructions"
+      },
+      {
+        "display": "Code",
+        "anchor": "code"
+      }
     ]
   },
   {
@@ -111,7 +229,8 @@
     "description": "Get current date for specific timezone when server is in UTC timezone.",
     "tags": [
       "sql"
-    ]
+    ],
+    "headings": []
   },
   {
     "slug": "/blog/creating-a-use-countdown-react-hook",
@@ -122,6 +241,24 @@
     "tags": [
       "react",
       "testing"
+    ],
+    "headings": [
+      {
+        "display": "Humble beginnings",
+        "anchor": "humble-beginnings"
+      },
+      {
+        "display": "Writing the tests",
+        "anchor": "writing-the-tests"
+      },
+      {
+        "display": "Creating the hook",
+        "anchor": "creating-the-hook"
+      },
+      {
+        "display": "Final code",
+        "anchor": "final-code"
+      }
     ]
   },
   {
@@ -132,7 +269,8 @@
     "description": "Click on all unchecked checkboxes in the document.",
     "tags": [
       "javascript"
-    ]
+    ],
+    "headings": []
   },
   {
     "slug": "/blog/how-to-use-git-bisect",
@@ -142,6 +280,20 @@
     "description": "How to find which commit introduced a bug when you have nowhere else to turn.",
     "tags": [
       "git"
+    ],
+    "headings": [
+      {
+        "display": "The Solution",
+        "anchor": "the-solution"
+      },
+      {
+        "display": "Example",
+        "anchor": "example"
+      },
+      {
+        "display": "Resetting",
+        "anchor": "resetting"
+      }
     ]
   },
   {
@@ -153,7 +305,8 @@
     "tags": [
       "sql",
       "csharp"
-    ]
+    ],
+    "headings": []
   },
   {
     "slug": "/snippets/templater",
@@ -164,6 +317,72 @@
     "tags": [
       "obsidianmd",
       "javascript"
+    ],
+    "headings": [
+      {
+        "display": "Multi-select suggester",
+        "anchor": "multi-select-suggester"
+      },
+      {
+        "display": "Create file if it doesn't exist",
+        "anchor": "create-file-if-it-doesnt-exist"
+      },
+      {
+        "display": "Reapply template instead of append",
+        "anchor": "reapply-template-instead-of-append"
+      },
+      {
+        "display": "Create links to all files created today",
+        "anchor": "create-links-to-all-files-created-today"
+      },
+      {
+        "display": "Opening files in new tabs",
+        "anchor": "opening-files-in-new-tabs"
+      },
+      {
+        "display": "Create links to all weekly notes in current month",
+        "anchor": "create-links-to-all-weekly-notes-in-current-month"
+      },
+      {
+        "display": "Create links to all daily notes in week",
+        "anchor": "create-links-to-all-daily-notes-in-week"
+      },
+      {
+        "display": "Suggester for files with tag",
+        "anchor": "suggester-for-files-with-tag"
+      },
+      {
+        "display": "Suggester for tags",
+        "anchor": "suggester-for-tags"
+      },
+      {
+        "display": "Get most recently modified file with specific tag",
+        "anchor": "get-most-recently-modified-file-with-specific-tag"
+      },
+      {
+        "display": "Suggester for files in a specific folder",
+        "anchor": "suggester-for-files-in-a-specific-folder"
+      },
+      {
+        "display": "Using tp.file.include in a user script",
+        "anchor": "using-tpfileinclude-in-a-user-script"
+      },
+      {
+        "display": "Daily note links to yesterday and tomorrow",
+        "anchor": "daily-note-links-to-yesterday-and-tomorrow"
+      },
+      {
+        "display": "Retrieve frontmatter from another note",
+        "anchor": "retrieve-frontmatter-from-another-note"
+      },
+      {
+        "display": "Update frontmatter",
+        "anchor": "update-frontmatter"
+      },
+      {
+        "display": "Reuse value from prompt or suggester",
+        "anchor": "reuse-value-from-prompt-or-suggester"
+      }
     ]
   },
   {
@@ -175,6 +394,24 @@
     "tags": [
       "react",
       "typescript"
+    ],
+    "headings": [
+      {
+        "display": "PropsWithChildren Type",
+        "anchor": "propswithchildren-type"
+      },
+      {
+        "display": "FunctionalComponent (FC) Type",
+        "anchor": "functionalcomponent-fc-type"
+      },
+      {
+        "display": "ReactNode Type",
+        "anchor": "reactnode-type"
+      },
+      {
+        "display": "What if I only want to pass children?",
+        "anchor": "what-if-i-only-want-to-pass-children"
+      }
     ]
   },
   {
@@ -185,6 +422,12 @@
     "description": "How to call the setState function safely when using third-party libraries that are not compatible with React.",
     "tags": [
       "react"
+    ],
+    "headings": [
+      {
+        "display": "Solutions",
+        "anchor": "solutions"
+      }
     ]
   }
 ]
