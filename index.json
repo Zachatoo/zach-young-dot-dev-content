@@ -1,5 +1,18 @@
 [
   {
+    "slug": "/snippets/templater-multi-select-suggester",
+    "path": "/snippets/templater-multi-select-suggester.md",
+    "title": "Templater multi-select suggester",
+    "createdAt": "2023-05-10",
+    "updatedAt": "2023-05-10",
+    "description": "We can (kindof) do a multi-select suggester by sticking the suggester in a `while` loop, letting the user keep selecting options and adding them to a list of selected options until the user hits the `escape` key to exit out of the loop.",
+    "tags": [
+      "obsidianmd",
+      "javascript"
+    ],
+    "headings": []
+  },
+  {
     "slug": "/snippets/find-and-replace-html-attributes-with-react-props",
     "path": "/snippets/find-and-replace-html-attributes-with-react-props.md",
     "title": "Find and replace HTML attributes with React props",
@@ -319,10 +332,6 @@
       "javascript"
     ],
     "headings": [
-      {
-        "display": "Multi-select suggester",
-        "anchor": "multi-select-suggester"
-      },
       {
         "display": "Create file if it doesn't exist",
         "anchor": "create-file-if-it-doesnt-exist"
