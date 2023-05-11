@@ -35,7 +35,7 @@ const urlsToPurge: Set<string> = new Set();
 if (indexRebuilt) {
   // purge home page
   urlsToPurge.add(`${BASE_URL}/`);
-  urlsToPurge.add(`${BASE_URL}/?_data=routes%2Findex`);
+  urlsToPurge.add(`${BASE_URL}/?_data=routes%2F_index`);
   // purge blog list page
   urlsToPurge.add(`${BASE_URL}/blog`);
   urlsToPurge.add(`${BASE_URL}/blog?_data=routes%2Fblog._index`);
