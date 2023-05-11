@@ -2,7 +2,7 @@
 title: "Templater multi-select suggester"
 createdAt: "2023-05-10"
 updatedAt: "2023-05-10"
-description: "We can (kindof) do a multi-select suggester by sticking the suggester in a `while` loop, letting the user keep selecting options and adding them to a list of selected options until the user hits the `escape` key to exit out of the loop."
+description: "We can (kindof) do a multi-select suggester by sticking the suggester in a `while` loop."
 tags:
   - obsidianmd
   - javascript
