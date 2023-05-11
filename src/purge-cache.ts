@@ -38,10 +38,10 @@ if (indexRebuilt) {
   urlsToPurge.add(`${BASE_URL}/?_data=routes%2Findex`);
   // purge blog list page
   urlsToPurge.add(`${BASE_URL}/blog`);
-  urlsToPurge.add(`${BASE_URL}/blog?_data=routes%2Fblog`);
+  urlsToPurge.add(`${BASE_URL}/blog?_data=routes%2Fblog._index`);
   // purge snippet list page
   urlsToPurge.add(`${BASE_URL}/snippets`);
-  urlsToPurge.add(`${BASE_URL}/snippets?_data=routes%2Fsnippets`);
+  urlsToPurge.add(`${BASE_URL}/snippets?_data=routes%2Fsnippets_.index`);
 }
 
 pathsArr.forEach((pathWithExtension: string) => {
