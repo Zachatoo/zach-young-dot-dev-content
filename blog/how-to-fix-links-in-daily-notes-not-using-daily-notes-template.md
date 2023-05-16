@@ -7,9 +7,9 @@ tags:
   - obsidianmd
 ---
 
-If your daily notes template has [links to yesterday's and tomorrow's](/snippets/templater#daily-note-links-to-yesterday-and-tomorrow) daily notes, then it's possible you've run into the issue where clicking on a date in the [Calendar](obsidian://show-plugin?id=calendar) plugin will apply your template, but clicking on links to yesterday's and tomorrow's notes will not apply your template.
+If your daily notes template has [links to yesterday's and tomorrow's](/snippets/templater#daily-note-links-to-yesterday-and-tomorrow) daily notes, then it's possible you've run into the issue where clicking on a date in the [Calendar](https://github.com/liamcain/obsidian-calendar-plugin) plugin will apply your template, but clicking on links to yesterday's and tomorrow's notes will not apply your template.
 
-If this is the case, you can solve this with the [folder templates](https://silentvoid13.github.io/Templater/settings.html#folder-templates) feature of the [Templater](obsidian://show-plugin?id=templater-obsidian) plugin.
+If this is the case, you can solve this with the [folder templates](https://silentvoid13.github.io/Templater/settings.html#folder-templates) feature of the [Templater](https://github.com/SilentVoid13/Templater) plugin.
 
 ## Turn on folder templates
 

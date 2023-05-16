@@ -47,4 +47,4 @@ Now whenever you select some text, the popup that shows up asking if you want to
 
 ## Obsidian inbox plugin
 
-I created a plugin for Obsidian called "Inbox" that will notify you when there's new information to process in your note that you're sending quick captures to. You can install it [here](obsidian://show-plugin?id=inbox). The plugin includes a walkthrough that will help you setup the settings properly.
+I created a plugin for Obsidian called "Inbox" that will notify you when there's new information to process in your note that you're sending quick captures to. You can install it [here](https://github.com/Zachatoo/obsidian-inbox). The plugin includes a walkthrough that will help you setup the settings properly.
