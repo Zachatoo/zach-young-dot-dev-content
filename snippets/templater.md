@@ -255,6 +255,34 @@ const selectedItem = (await tp.system.suggester((item) => item.basename, items))
 [[<% selectedItem %>]]
 ```
 
+## Suggester for subfolders in a specific folder
+
+We use `app.vault.getAbstractFileByPath()` to get a `TAbstractFile` object, verify that it is a folder and has subfolders by checking for the `children` property on the `TAbstractFile` object, then show a prompt to the user and move the current file to that selected folder.
+
+```js title="move-file-to-subfolder.md"
+<%*
+// Get details about folder (change "Folder Name" to desired folder)
+const folder = "Folder Name";
+const tFolder = app.vault.getAbstractFileByPath(folder);
+
+// Some checks to make sure it's actually a folder and that it has any subfolders
+if (!("children" in tFolder)) {
+  throw new Error("Folder is not a folder.");
+}
+const subfolders = tFolder.children.filter(subfolder => "children" in subfolder);
+if (subfolders.length === 0) {
+  throw new Error("Folder doesn't have any subfolders.");
+}
+
+// Prompt user to select subfolder
+const selectedFolder = (await tp.system.suggester((subfolder) => subfolder.name, subfolders)).path;
+
+// Move file to subfolder
+await tp.file.move(`${selectedFolder}/${tp.file.title}`);
+-%>
+
+```
+
 ## Using tp.file.include in a user script
 
 In order to use `tp.file.include` in a user script, you must return the result of `tp.file.include` at the end of the function. The `return` keyword is important.
