@@ -373,6 +373,10 @@
         "anchor": "suggester-for-files-in-a-specific-folder"
       },
       {
+        "display": "Suggester for subfolders in a specific folder",
+        "anchor": "suggester-for-subfolders-in-a-specific-folder"
+      },
+      {
         "display": "Using tp.file.include in a user script",
         "anchor": "using-tpfileinclude-in-a-user-script"
       },
