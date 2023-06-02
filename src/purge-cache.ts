@@ -42,6 +42,8 @@ if (indexRebuilt) {
   // purge snippet list page
   urlsToPurge.add(`${BASE_URL}/snippets`);
   urlsToPurge.add(`${BASE_URL}/snippets?_data=routes%2Fsnippets_.index`);
+  // purge rss feed
+  urlsToPurge.add(`${BASE_URL}/resource/rss.xml`);
 }
 
 pathsArr.forEach((pathWithExtension: string) => {
