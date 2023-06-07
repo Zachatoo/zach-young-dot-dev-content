@@ -65,7 +65,7 @@ WHERE any(filter(interests, (x) => contains(this.interests, x)))
 
 This is a modified script from deezy in the [Obsidian Discord](https://discord.com/channels/686053708261228577/694233507500916796/1046646558659182614).
 
-Dataview view:
+Dataview [view](https://blacksmithgu.github.io/obsidian-dataview/api/code-reference/#dvviewpath-input):
 
 ```js title="00 Meta/03 Dataview Views/sequential-links.js"
 // Get list of notes ordered alphanumerically.
