@@ -67,7 +67,7 @@ This is a modified script from deezy in the [Obsidian Discord](https://discord.c
 
 Dataview view:
 
-```js
+```js title="00 Meta/03 Dataview Views/sequential-links.js"
 // Get list of notes ordered alphanumerically.
 const pages = dv.pages(input.source).sort((page) => page.file.path);
 
@@ -86,7 +86,7 @@ dv.header(6, `<< ${prevLink} | ${nextLink} >>`);
 
 Sample usage:
 
-````md
+````md title="Daily Notes/2023-06-06.md"
 ```dataviewjs
 dv.view("00 Meta/03 Dataview Views/sequential-links", { source: '"Daily Notes"' })
 ```
