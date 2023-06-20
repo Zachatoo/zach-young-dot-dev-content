@@ -1,5 +1,22 @@
 [
   {
+    "slug": "/snippets/invariant",
+    "path": "/snippets/invariant.md",
+    "title": "Invariant",
+    "createdAt": "2023-06-19",
+    "updatedAt": "2023-06-19",
+    "description": "Simple function to assert a condition and for type narrowing in TypeScript.",
+    "tags": [
+      "javascript"
+    ],
+    "headings": [
+      {
+        "display": "Example usage",
+        "anchor": "example-usage"
+      }
+    ]
+  },
+  {
     "slug": "/snippets/templater-multi-select-suggester",
     "path": "/snippets/templater-multi-select-suggester.md",
     "title": "Templater multi-select suggester",
