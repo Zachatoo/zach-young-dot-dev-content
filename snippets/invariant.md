@@ -7,6 +7,8 @@ tags:
   - javascript
 ---
 
+Simple function to assert a condition and for type narrowing in TypeScript.
+
 Inspired by [tinyinvariant](https://github.com/alexreardon/tiny-invariant).
 
 ```ts title="invariant.ts"
