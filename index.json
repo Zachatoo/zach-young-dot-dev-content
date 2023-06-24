@@ -1,5 +1,22 @@
 [
   {
+    "slug": "/blog/async-filtering-javascript",
+    "path": "/blog/async-filtering-javascript.md",
+    "title": "Async filtering in Javascript",
+    "createdAt": "2023-06-24",
+    "updatedAt": "2023-06-24",
+    "description": "How to perform async operations when trying to filter data in an array in Javascript.",
+    "tags": [
+      "javascript"
+    ],
+    "headings": [
+      {
+        "display": "Solutions",
+        "anchor": "solutions"
+      }
+    ]
+  },
+  {
     "slug": "/snippets/invariant",
     "path": "/snippets/invariant.md",
     "title": "Invariant",
