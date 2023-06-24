@@ -23,7 +23,7 @@ const filteredResults = await Promise.all(data.filter(async (x) => x < 3));
 console.log(filteredResults); // [1, 2, 3, 4, 5]
 ```
 
-It doesn't work. Why? Let's break out the [callback function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter#parameters) function and explicitly type everything using Typescript.
+It doesn't work. Why? Let's break out the [callbackFn](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter#parameters) function and explicitly type everything using Typescript.
 
 ```ts title="async-filtering.ts"
 const data: number[] = [1, 2, 3, 4, 5];
