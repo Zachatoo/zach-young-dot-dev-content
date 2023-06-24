@@ -5,6 +5,7 @@ updatedAt: "2023-06-19"
 description: "Simple function to assert a condition and for type narrowing in TypeScript."
 tags:
   - javascript
+  - typescript
 ---
 
 Simple function to assert a condition and for type narrowing in TypeScript.
