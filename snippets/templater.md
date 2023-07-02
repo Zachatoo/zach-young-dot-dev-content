@@ -257,30 +257,29 @@ const selectedItem = (await tp.system.suggester((item) => item.basename, items))
 
 ## Suggester for subfolders in a specific folder
 
-We use `app.vault.getAbstractFileByPath()` to get a `TAbstractFile` object, verify that it is a folder and has subfolders by checking for the `children` property on the `TAbstractFile` object, then show a prompt to the user and move the current file to that selected folder.
+We use `app.vault.getAbstractFileByPath()` to get a `TAbstractFile` folder object, then show a prompt to the user for subfolders in that folder. If there are no subfolders or if no subfolder is selected, then prompt for a new subfolder to be created. Then move the current file to the subfolder.
 
 ```js title="move-file-to-subfolder.md"
 <%*
-// Get details about folder (change "Folder Name" to desired folder)
-const folder = "Folder Name";
-const tFolder = app.vault.getAbstractFileByPath(folder);
+// Get details about folder (change "Work/Meetings" to desired folder)
+const meetingsFolder = "Work/Meetings";
+const meetingsTFolder = app.vault.getAbstractFileByPath(meetingsFolder);
+const companies = meetingsTFolder.children.filter(subfolder => subfolder instanceof tp.obsidian.TFolder);
+let selectedCompany;
 
-// Some checks to make sure it's actually a folder and that it has any subfolders
-if (!("children" in tFolder)) {
-  throw new Error("Folder is not a folder.");
-}
-const subfolders = tFolder.children.filter(subfolder => "children" in subfolder);
-if (subfolders.length === 0) {
-  throw new Error("Folder doesn't have any subfolders.");
+// Prompt user to select company if there are any companies
+if (companies.length > 0) {
+  selectedCompany = (await tp.system.suggester((company) => company.name, companies))?.name;
 }
 
-// Prompt user to select subfolder
-const selectedFolder = (await tp.system.suggester((subfolder) => subfolder.name, subfolders)).path;
+// If no company selected or no companies to select from, prompt for new company
+if (!selectedCompany) {
+  selectedCompany = await tp.system.prompt("New company");
+}
 
-// Move file to subfolder
-await tp.file.move(`${selectedFolder}/${tp.file.title}`);
+// Move file to company folder, creating the company folder if needed
+await tp.file.move(`${meetingsFolder}/${selectedCompany}/${tp.file.title}`);
 -%>
-
 ```
 
 ## Using tp.file.include in a user script
